@@ -48,6 +48,12 @@ formatting language this page is written in.
 
 - [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)
 
+**[InClassExercise/recipe.md](InClassExercise/recipe.md) is a worked example** —
+a real recipe written in markdown, using headings, both kinds of list, a link,
+and an image. That is exactly the shape your `recipe.md` homework should take.
+Read it on GitHub to see it rendered, then open the raw file to see the markdown
+that produced it. Next week we mark this same recipe up in HTML.
+
 ---
 
 Homework is in [HW.md](../HW.md).

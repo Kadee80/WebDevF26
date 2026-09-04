@@ -2,7 +2,7 @@
 
 *Get your homework pushed, clone the class repo, then build your first web page · ~2 hours (≈40 min setup, ≈70 min HTML)*
 
-> **Following along at home?** Work through the steps in order. Each step shows what changed, and the full file underneath it. If you get lost, the finished code is in `end-of-class/`.
+> **Following along at home?** Work through the steps in order. Each step shows what changed, and the full file underneath it. If you get lost, the finished code is in `InClassExercise/` once I push it after class.
 
 **First half:** finish setting up GitHub. You'll create a personal access token, push the homework you wrote last class, and clone the class repo so you can get my notes and examples all semester.
 
@@ -329,7 +329,7 @@ What changed:
      <h1>Buttermilk Pancakes</h1>
 +    <p>
 +      Light, fluffy pancakes that take about twenty minutes start to
-+      finish. Makes roughly eight.
++      finish. Makes about twelve.
 +    </p>
      <h2>Ingredients</h2>
      <h2>Instructions</h2>
@@ -349,7 +349,7 @@ What changed:
     <h1>Buttermilk Pancakes</h1>
     <p>
       Light, fluffy pancakes that take about twenty minutes start to
-      finish. Makes roughly eight.
+      finish. Makes about twelve.
     </p>
     <h2>Ingredients</h2>
     <h2>Instructions</h2>
@@ -383,9 +383,9 @@ What changed:
      <h1>Buttermilk Pancakes</h1>
      <p>
 -      Light, fluffy pancakes that take about twenty minutes start to
--      finish. Makes roughly eight.
+-      finish. Makes about twelve.
 +      Light, fluffy pancakes that take about <strong>twenty minutes</strong>
-+      start to finish. Makes roughly eight. The trick is <em>not</em>
++      start to finish. Makes about twelve. The trick is <em>not</em>
 +      overmixing the batter.
      </p>
      <h2>Ingredients</h2>
@@ -405,7 +405,7 @@ What changed:
     <h1>Buttermilk Pancakes</h1>
     <p>
       Light, fluffy pancakes that take about <strong>twenty minutes</strong>
-      start to finish. Makes roughly eight. The trick is <em>not</em>
+      start to finish. Makes about twelve. The trick is <em>not</em>
       overmixing the batter.
     </p>
     <h2>Ingredients</h2>
@@ -438,28 +438,29 @@ Notice the nesting and the indentation — `<li>` sits inside `<ul>`, so it's in
 What changed:
 
 ```diff
-@@ -12,6 +12,25 @@
+@@ -12,6 +12,26 @@
        overmixing the batter.
      </p>
 +
      <h2>Ingredients</h2>
 +    <ul>
-+      <li>3/4 cup melted butter</li>
-+      <li>2 tbsp whole milk</li>
-+      <li>1 egg</li>
-+      <li>3/4 cup all purpose flour</li>
-+      <li>2 tsp baking powder</li>
++      <li>1½ cups all purpose flour</li>
 +      <li>2 tbsp sugar</li>
-+      <li>1/2 tsp salt</li>
++      <li>2 tsp baking powder</li>
++      <li>½ tsp baking soda</li>
++      <li>½ tsp salt</li>
++      <li>1½ cups buttermilk</li>
++      <li>1 large egg</li>
++      <li>3 tbsp melted butter</li>
 +    </ul>
 +
      <h2>Instructions</h2>
 +    <ol>
-+      <li>Melt the butter and let it cool slightly.</li>
-+      <li>Beat together the milk, butter and egg.</li>
-+      <li>Add the flour, baking powder, sugar and salt.</li>
-+      <li>Mix until just combined. Lumps are fine.</li>
-+      <li>Drop by the tablespoon into a hot buttered pan.</li>
++      <li>Whisk the flour, sugar, baking powder, baking soda and salt.</li>
++      <li>In another bowl beat the egg, then whisk in the buttermilk and butter.</li>
++      <li>Pour the wet into the dry. Stir until just combined — lumps are fine.</li>
++      <li>Let the batter rest 10 minutes. Do not skip this.</li>
++      <li>Pour ¼ cup per pancake into a hot buttered pan.</li>
 +      <li>Flip when the top is full of little holes.</li>
 +    </ol>
    </body>
@@ -480,28 +481,29 @@ What changed:
     <h1>Buttermilk Pancakes</h1>
     <p>
       Light, fluffy pancakes that take about <strong>twenty minutes</strong>
-      start to finish. Makes roughly eight. The trick is <em>not</em>
+      start to finish. Makes about twelve. The trick is <em>not</em>
       overmixing the batter.
     </p>
 
     <h2>Ingredients</h2>
     <ul>
-      <li>3/4 cup melted butter</li>
-      <li>2 tbsp whole milk</li>
-      <li>1 egg</li>
-      <li>3/4 cup all purpose flour</li>
-      <li>2 tsp baking powder</li>
+      <li>1½ cups all purpose flour</li>
       <li>2 tbsp sugar</li>
-      <li>1/2 tsp salt</li>
+      <li>2 tsp baking powder</li>
+      <li>½ tsp baking soda</li>
+      <li>½ tsp salt</li>
+      <li>1½ cups buttermilk</li>
+      <li>1 large egg</li>
+      <li>3 tbsp melted butter</li>
     </ul>
 
     <h2>Instructions</h2>
     <ol>
-      <li>Melt the butter and let it cool slightly.</li>
-      <li>Beat together the milk, butter and egg.</li>
-      <li>Add the flour, baking powder, sugar and salt.</li>
-      <li>Mix until just combined. Lumps are fine.</li>
-      <li>Drop by the tablespoon into a hot buttered pan.</li>
+      <li>Whisk the flour, sugar, baking powder, baking soda and salt.</li>
+      <li>In another bowl beat the egg, then whisk in the buttermilk and butter.</li>
+      <li>Pour the wet into the dry. Stir until just combined — lumps are fine.</li>
+      <li>Let the batter rest 10 minutes. Do not skip this.</li>
+      <li>Pour ¼ cup per pancake into a hot buttered pan.</li>
       <li>Flip when the top is full of little holes.</li>
     </ol>
   </body>
@@ -560,28 +562,29 @@ What changed:
 
     <p>
       Light, fluffy pancakes that take about <strong>twenty minutes</strong>
-      start to finish. Makes roughly eight. The trick is <em>not</em>
+      start to finish. Makes about twelve. The trick is <em>not</em>
       overmixing the batter.
     </p>
 
     <h2>Ingredients</h2>
     <ul>
-      <li>3/4 cup melted butter</li>
-      <li>2 tbsp whole milk</li>
-      <li>1 egg</li>
-      <li>3/4 cup all purpose flour</li>
-      <li>2 tsp baking powder</li>
+      <li>1½ cups all purpose flour</li>
       <li>2 tbsp sugar</li>
-      <li>1/2 tsp salt</li>
+      <li>2 tsp baking powder</li>
+      <li>½ tsp baking soda</li>
+      <li>½ tsp salt</li>
+      <li>1½ cups buttermilk</li>
+      <li>1 large egg</li>
+      <li>3 tbsp melted butter</li>
     </ul>
 
     <h2>Instructions</h2>
     <ol>
-      <li>Melt the butter and let it cool slightly.</li>
-      <li>Beat together the milk, butter and egg.</li>
-      <li>Add the flour, baking powder, sugar and salt.</li>
-      <li>Mix until just combined. Lumps are fine.</li>
-      <li>Drop by the tablespoon into a hot buttered pan.</li>
+      <li>Whisk the flour, sugar, baking powder, baking soda and salt.</li>
+      <li>In another bowl beat the egg, then whisk in the buttermilk and butter.</li>
+      <li>Pour the wet into the dry. Stir until just combined — lumps are fine.</li>
+      <li>Let the batter rest 10 minutes. Do not skip this.</li>
+      <li>Pour ¼ cup per pancake into a hot buttered pan.</li>
       <li>Flip when the top is full of little holes.</li>
     </ol>
   </body>
@@ -611,7 +614,7 @@ Write link text that describes where it goes. "Click here" tells someone tabbing
 What changed:
 
 ```diff
-@@ -36,4 +36,9 @@
+@@ -37,4 +37,9 @@
        <li>Flip when the top is full of little holes.</li>
      </ol>
 +
@@ -640,28 +643,29 @@ What changed:
 
     <p>
       Light, fluffy pancakes that take about <strong>twenty minutes</strong>
-      start to finish. Makes roughly eight. The trick is <em>not</em>
+      start to finish. Makes about twelve. The trick is <em>not</em>
       overmixing the batter.
     </p>
 
     <h2>Ingredients</h2>
     <ul>
-      <li>3/4 cup melted butter</li>
-      <li>2 tbsp whole milk</li>
-      <li>1 egg</li>
-      <li>3/4 cup all purpose flour</li>
-      <li>2 tsp baking powder</li>
+      <li>1½ cups all purpose flour</li>
       <li>2 tbsp sugar</li>
-      <li>1/2 tsp salt</li>
+      <li>2 tsp baking powder</li>
+      <li>½ tsp baking soda</li>
+      <li>½ tsp salt</li>
+      <li>1½ cups buttermilk</li>
+      <li>1 large egg</li>
+      <li>3 tbsp melted butter</li>
     </ul>
 
     <h2>Instructions</h2>
     <ol>
-      <li>Melt the butter and let it cool slightly.</li>
-      <li>Beat together the milk, butter and egg.</li>
-      <li>Add the flour, baking powder, sugar and salt.</li>
-      <li>Mix until just combined. Lumps are fine.</li>
-      <li>Drop by the tablespoon into a hot buttered pan.</li>
+      <li>Whisk the flour, sugar, baking powder, baking soda and salt.</li>
+      <li>In another bowl beat the egg, then whisk in the buttermilk and butter.</li>
+      <li>Pour the wet into the dry. Stir until just combined — lumps are fine.</li>
+      <li>Let the batter rest 10 minutes. Do not skip this.</li>
+      <li>Pour ¼ cup per pancake into a hot buttered pan.</li>
       <li>Flip when the top is full of little holes.</li>
     </ol>
 

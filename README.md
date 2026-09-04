@@ -47,11 +47,10 @@ WeekNN/
 ├── HW.md                  ← the homework for that week
 └── WeekN_1/  WeekN_2/     ← one folder per class day
     └── Topic/
-        ├── README.md      ← the class notes for that topic
-        ├── StarterFiles/     ← copy this to follow along in class
-        ├── InClassExercise/  ← empty until after class, then it holds
-        │                        exactly what we built together
-        └── end-of-class/     ← where we should land by the end
+        ├── README.md         ← the class notes for that topic
+        ├── StarterFiles/     ← copy this to follow along (not every lesson has one)
+        └── InClassExercise/  ← empty until I teach the class. Afterwards it holds
+                                 exactly what we built together.
 ```
 
 Three rules, everywhere in this repo:
@@ -59,6 +58,12 @@ Three rules, everywhere in this repo:
 - **Homework is always `HW.md`**, at the top of the week folder.
 - **Class notes are always `README.md`**, in the folder for that topic.
 - **`WeekNN/README.md` is just an index** — it links to the notes and the homework.
+- **`InClassExercise/` is empty until that class has happened.** I push what we
+  built together right after the session, so if you fell behind or missed a day,
+  that folder is the exact code from the room. Check back after class, not
+  before.
+- **`StarterFiles/` only exists where a lesson needs one.** Some topics start
+  from a blank file.
 
 Some sessions also have:
 
@@ -86,10 +91,11 @@ cp -R WeekNN/SomeTopic/StarterFiles ~/your-hw-repo/WeekNN/
 | 02 | HTML: structure, tags, lists, images, links, forms |
 | 03 | Information architecture, UX, links & directories, intro to CSS, the box model |
 | 04 | CSS layout: positioning, flexbox, transforms, media queries |
-| 06 | Flexbox continued, midterm proposals |
-| 07 | Responsive design, portfolio, midterm presentations |
+| 05 | Midterm proposal presentations |
+| 06 | Flexbox continued, responsive design |
+| 07 | Portfolio and midterm presentations |
 | 08 | CSS variables, contact forms, Photoshop |
-| 09 | Midterm presentations, intro to JavaScript: math, arrays, CSS grid |
+| 09 | Intro to JavaScript: math, arrays, CSS grid |
 | 10 | JavaScript objects, JSON, async data and the DOM |
 | 11 | User input, local storage, geolocation |
 | 12 | Bootstrap grid, Leaflet & OpenStreetMap |

@@ -4,8 +4,8 @@
 >
 > **Missed this class, or want to follow along again?**
 > [WALKTHROUGH.md](WALKTHROUGH.md) rebuilds this page from an empty file in ten
-> steps, showing exactly what changed at each one. The finished code is in
-> [end-of-class/](end-of-class/).
+> steps, showing exactly what changed at each one. The code we wrote together
+> lands in [InClassExercise/](InClassExercise/) after class.
 
 Everything in this lesson uses the same example: a recipe. You wrote one in
 plain text last week. Today we mark it up, and by the end of class it is a real
@@ -93,7 +93,7 @@ The majority of the content on webpages are probably paragraphs.
 ```html
 <p>
   Light, fluffy pancakes that take about twenty minutes start to finish. Makes
-  roughly eight.
+  about twelve.
 </p>
 ```
 
@@ -254,9 +254,9 @@ first one:
 
 ```html
 <ul>
-  <li>3/4 cup melted butter</li>
-  <li>2 tbsp whole milk</li>
-  <li>1 egg</li>
+  <li>1½ cups all purpose flour</li>
+  <li>1½ cups buttermilk</li>
+  <li>1 large egg</li>
 </ul>
 ```
 
@@ -264,9 +264,9 @@ Instructions are an **ordered** list — do them in this order or you get soup:
 
 ```html
 <ol>
-  <li>Melt the butter and let it cool slightly.</li>
-  <li>Beat together the milk, butter and egg.</li>
-  <li>Add the flour, baking powder, sugar and salt.</li>
+  <li>Whisk the flour, sugar, baking powder, baking soda and salt.</li>
+  <li>In another bowl beat the egg, then whisk in the buttermilk and butter.</li>
+  <li>Pour the wet into the dry. Stir until just combined.</li>
 </ol>
 ```
 
