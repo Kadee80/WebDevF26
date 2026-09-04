@@ -1,6 +1,6 @@
 # Hello HTML!
 
-> **Slides:** [HTML_Basics.pptx]([HTML_Basics.pptx](https://docs.google.com/presentation/d/1paziS8xVls4RuwNQiesNbsFm94L70RLVXBBUJ6sirv8/edit?usp=sharing))
+> **Slides:** [HTML_Basics.pptx](https://docs.google.com/presentation/d/1paziS8xVls4RuwNQiesNbsFm94L70RLVXBBUJ6sirv8/edit?usp=sharing)
 >
 > **Missed this class, or want to follow along again?**
 > [WALKTHROUGH.md](WALKTHROUGH.md) rebuilds this page from an empty file in ten
