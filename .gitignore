@@ -1,0 +1,18 @@
+node_modules
+dist
+.DS_Store
+
+# instructor notes -- podium cues and pacing. Students read WeekNN/README.md
+TEACH.md
+TEACH*.html
+
+# the live-code generator: session sources contain the podium cues verbatim,
+# so the whole toolchain stays local. Keep it in a private repo if you want
+# it versioned.
+_livecode/
+
+# slide decks are large binaries; keep them if you want students to have them
+# *.pptx
+
+# the publish helper is instructor tooling too
+publish-week.sh
