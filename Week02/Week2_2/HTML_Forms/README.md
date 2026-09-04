@@ -8,9 +8,11 @@ Every input type in this lesson earns its place because this one form actually
 needs it — a dish has one difficulty (radio), several dietary tags (checkbox),
 a number of servings (number), a photo (file), and so on.
 
-The finished form is in
-[StarterFiles/index.html](StarterFiles/index.html). Open it in the
-browser and in your editor at the same time.
+[StarterFiles/index.html](StarterFiles/index.html) is the page shell — the
+heading and the intro, with a comment where the form goes. **Copy it into your
+own repo and build the form along with me in class.** Everything we write
+together lands in [InClassExercise/](InClassExercise/) afterwards, so if you
+fall behind, keep watching and pick the code up from there.
 
 ---
 

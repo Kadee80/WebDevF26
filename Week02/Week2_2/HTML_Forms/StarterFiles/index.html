@@ -16,233 +16,30 @@
     <h1>Class Cookbook</h1>
     <p id="top">
       Last class we marked up a recipe as a web page. Today we build the form
-      someone would fill out to send us one. Every input type below is here
-      because this particular form needs it. For more information see
+      someone would fill out to send us one. For more information see
       <a href="https://www.w3schools.com/html/html_forms.asp" target="_blank"
         >W3 Schools Tutorials</a
       >. Whenever you need to make an anchor tag but you don't have the final
       link/url yet... use the <code>#</code> for your href!
     </p>
 
-    <!-- The form tag itself is not visible on the page.
-     It wraps form elements and bakes in some browser default behavior.
-     Like: hitting the enter key to submit a small form. Clicking any button
-     inside the form tag will also submit the form.
-     -->
-    <!-- The name attribute is super important. This tells JS or whatever backend
-      language you are using what form this is and where to write the NAMED
-      input values in your API -->
-    <!-- action attribute is the script or function or API endpoint that
-      processes the form data. We do not have one yet, so # is our placeholder -->
-    <!-- https://www.w3schools.com/tags/att_form_method.asp
-      GET - Retrieve/read data
-      POST - Writing to DB or sending off to REST API endpoint
-      PUT - Edit/Update entry
-      DELETE - deletes a record,
-      usually you need to send off some unique ID to know what item to delete
-    -->
-    <!-- This one is POST on purpose: we are WRITING a new recipe, and there is
-      a password in here. A GET would put that password in the URL bar. -->
-    <form name="submitRecipe" action="#" method="POST">
-      <!-- fieldset is an old school tag. It is a way of "grouping" form inputs
-        visually without CSS. Think modern day form groups or input groups. -->
-      <fieldset>
-        <!-- legend is the title of this form group / fieldset -->
-        <legend>1. Who is cooking?</legend>
-        <p>
-          Text, email and password inputs. The box and title you see around this
-          group are created by the fieldset and legend tags.
-        </p>
+    <!-- ============================================================
+         THE FORM GOES HERE.
 
-        <!-- Inputs change appearance and behavior based on the type attribute.
-          If you do not specify a type, the default is type="text" -->
-        <!-- As a general rule of thumb make sure your label's FOR, and your
-          input's NAME and ID are all present and the same value -->
-        <label for="cookName">Your name:</label>
-        <input
-          type="text"
-          name="cookName"
-          id="cookName"
-          placeholder="Katie Adee"
-          required
-        />
+         We build it together, one fieldset at a time:
 
-        <!--
-          The required attribute is a boolean, so the presence of the word
-          required is the same as required="true". Try submitting without it.
-        -->
-        <label for="email">Email:</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="you@nyu.edu"
-          required
-        />
-        <!-- type="email" makes the browser check for an @ before it will submit,
-          and gives phones the keyboard with the @ key on it -->
+           1. Who is cooking?   text, email, password
+           2. The recipe        text, number, range, select
+           3. How hard is it?   radio    (one answer only)
+           4. Dietary tags      checkbox (several answers)
+           5. The actual food   textarea
+           6. Extras            file, url, date, color
+           7. Buttons           submit, reset
 
-        <!-- Password inputs are how we hide the text with those dots,
-          as default HTML behavior/style -->
-        <label for="password">Pick a password:</label>
-        <input type="password" name="password" id="password" minlength="10" />
-      </fieldset>
-
-      <fieldset>
-        <legend>2. The recipe</legend>
-        <p>Text, number and range inputs, and a dropdown.</p>
-
-        <label for="dishName">Dish name:</label>
-        <input
-          type="text"
-          name="dishName"
-          id="dishName"
-          maxlength="60"
-          placeholder="Buttermilk Pancakes"
-        />
-        <!-- maxlength stops the user typing past 60 characters. It is not
-          validation, it is a limit -- the field simply stops accepting keys. -->
-
-        <!-- Input type number changes how the input looks and limits the user
-          to numbers and characters related to math -->
-        <label for="servings">Servings:</label>
-        <input type="number" name="servings" id="servings" min="1" max="24" />
-
-        <label for="prepTime">Prep time (minutes):</label>
-        <input
-          type="number"
-          name="prepTime"
-          id="prepTime"
-          min="0"
-          max="480"
-          step="5"
-        />
-        <!-- step="5" means the up/down arrows move by 5. Change it to 0.01 and
-          watch what happens -- that is how you get a price field. -->
-
-        <!-- Using the select and option tags, you can add items to a dropdown -->
-        <label for="course">Course:</label>
-        <select name="course" id="course">
-          <!-- You name the select tag, which groups the options together.
-            The VALUE from the chosen option is what writes to the DB.
-            The text between the tags is what the human reads. -->
-          <option value="breakfast">Breakfast</option>
-          <option value="appetizer">Appetizer</option>
-          <option value="main">Main</option>
-          <option value="side">Side</option>
-          <option value="dessert">Dessert</option>
-          <option value="drink">Drink</option>
-        </select>
-
-        <label for="spice">Spice level (0 = mild, 5 = call an ambulance):</label>
-        <input type="range" name="spice" id="spice" min="0" max="5" />
-      </fieldset>
-
-      <fieldset>
-        <legend>3. How hard is it?</legend>
-        <p>
-          Radio buttons allow the user to select ONLY one value at a time.
-          <strong
-            >Radio buttons in the same "group" share one name but have different
-            pre-defined values.</strong
-          >
-          A recipe has exactly one difficulty, so: radio.
-        </p>
-        <!-- IF you can select more than one radio button in the same group,
-          chances are you have a syntax error - a typo. For radio or checkbox to
-          be grouped they must all have the same exact name. -->
-        <input type="radio" name="difficulty" id="easy" value="easy" />
-        <label for="easy">Weeknight easy</label><br />
-        <input type="radio" name="difficulty" id="medium" value="medium" />
-        <label for="medium">Some technique required</label><br />
-        <input type="radio" name="difficulty" id="hard" value="hard" />
-        <label for="hard">Clear your afternoon</label>
-      </fieldset>
-
-      <fieldset>
-        <legend>4. Dietary tags</legend>
-        <p>
-          Check boxes allow the user to select more than one value at once.
-          <strong
-            >Checkboxes in the same "group" share one name but have different
-            pre-defined values.</strong
-          >
-          A dish can be vegetarian AND gluten free, so: checkbox.
-        </p>
-        <!-- Beware of copy-paste! Make sure you update the text the user sees
-          AND the value of the input itself. The value is what gets submitted. -->
-        <input type="checkbox" name="diet" id="veg" value="vegetarian" />
-        <label for="veg">Vegetarian</label><br />
-        <input type="checkbox" name="diet" id="vegan" value="vegan" />
-        <label for="vegan">Vegan</label><br />
-        <input type="checkbox" name="diet" id="gf" value="gluten-free" />
-        <label for="gf">Gluten free</label><br />
-        <input type="checkbox" name="diet" id="nf" value="nut-free" />
-        <label for="nf">Nut free</label>
-      </fieldset>
-
-      <fieldset>
-        <legend>5. The actual food</legend>
-        <p>
-          Textarea tags are great for longer text answers, and sentences and
-          paragraphs. Note that textarea has a closing tag and no value
-          attribute — whatever you put between the tags is the starting text.
-        </p>
-
-        <label for="ingredients">Ingredients, one per line:</label><br />
-        <textarea name="ingredients" id="ingredients" cols="50" rows="8"></textarea>
-
-        <br />
-
-        <label for="instructions">Instructions, one step per line:</label><br />
-        <textarea
-          name="instructions"
-          id="instructions"
-          cols="50"
-          rows="10"
-        ></textarea>
-      </fieldset>
-
-      <fieldset>
-        <legend>6. Extras</legend>
-        <p>A few more input types you will meet again later in the semester.</p>
-
-        <label for="photo">A photo of the finished dish:</label>
-        <input type="file" name="photo" id="photo" accept="image/*" />
-        <br />
-
-        <label for="source">Link to the original recipe, if there is one:</label>
-        <input
-          type="url"
-          name="source"
-          id="source"
-          placeholder="https://..."
-        />
-        <br />
-
-        <label for="lastMade">Last time you made it:</label>
-        <input type="date" name="lastMade" id="lastMade" />
-        <br />
-
-        <label for="cardColor">Pick a color for your cookbook page:</label>
-        <input type="color" name="cardColor" id="cardColor" value="#c25b3a" />
-      </fieldset>
-
-      <p>Finally, we use a button to submit our form!</p>
-      <!-- Inside a form, a button submits by default. You do not need
-        type="submit", though writing it out is clearer. -->
-      <button type="submit">Add to the cookbook</button>
-      <!-- type="reset" wipes every field in the form. Users hate this button.
-        It is here so you know it exists. -->
-      <button type="reset">Start over</button>
-      <!-- A disabled input is greyed out and its value is NOT submitted -->
-      <input
-        name="draft"
-        value="Save as draft (not built yet)"
-        type="button"
-        disabled
-      />
-    </form>
+         Start with the <form> tag itself and its attributes, then add
+         one fieldset at a time. Do not skip ahead -- the point is to
+         watch what each input type does in the browser as we add it.
+         ============================================================ -->
 
     <p><a href="#top">Back to Top</a></p>
   </body>

@@ -291,6 +291,7 @@ We build the recipe page together, from an empty file. Follow along in
 - Bonus — find an image of the dish. Link to it with an image tag, and write a
   real `alt` description for it.
 
-[Tag reference: StarterFiles/index.html](StarterFiles/index.html) is
-the annotated version of every tag above, all in one recipe page. Open it in the
-browser and in your editor side by side.
+Everything above is the reference. In class we build the page from an empty
+file — start from
+[StarterFiles/boilerplate.html](StarterFiles/boilerplate.html), and the code we
+write together lands in [InClassExercise/](InClassExercise/) afterwards.
