@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Class Cookbook — Submit a Recipe</title>
+    <style>
+      #top {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Command + / to comment in whatever language you are currently writing -->
+
+    <h1>Class Cookbook</h1>
+    <p id="top">
+      Last class we marked up a recipe as a web page. Today we build the form
+      someone would fill out to send us one. For more information see
+      <a href="https://www.w3schools.com/html/html_forms.asp" target="_blank"
+        >W3 Schools Tutorials</a
+      >. Whenever you need to make an anchor tag but you don't have the final
+      link/url yet... use the <code>#</code> for your href!
+    </p>
+
+    <!-- ============================================================
+         THE FORM GOES HERE.
+
+         Try this for HW, one fieldset at a time:
+
+           1. Who is cooking?   text, email, password
+           2. The recipe        text, number, range, select
+           3. How hard is it?   radio    (one answer only)
+           4. Dietary tags      checkbox (several answers)
+           5. The actual food   textarea
+           6. Extras            file, url, date, color
+           7. Buttons           submit, reset
+
+         Start with the <form> tag itself and its attributes, then add
+         one fieldset at a time. Do not skip ahead -- the point is to
+         watch what each input type does in the browser as we add it.
+        ============================================================ -->
+    <!-- The form tag itself is not visible on the page. It wraps form elements
+     and bakes in some browser default behavior. You can hit enter key to submit a small form.
+     Clicking any button inside the form will submit the form -->
+
+    <!-- GET to retrieve data, POST to write to a DB or send data to a restful API endpoint
+      PUT edit/update an existing entry in the db, DELETE deletes a record from the DB -->
+
+    <!-- action is another optional attribute, its usually the endpoint or script to digest the form data -->
+    <form name="contactUs" target="_self" method="GET">
+      <!-- This is an old school tag but its nice for grouping form data without CSS -->
+      <fieldset>
+        <!-- Legend is the title of the form group/fieldset -->
+        <legend>Who is cooking?</legend>
+        <p>
+          We can put any other tag inside of a form, maybe its for instructions
+          or a diagram or a test question.
+        </p>
+
+        <label for="firstName">First Name:</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          required
+          placeholder="Dummy Text Hint"
+        />
+        <br />
+        <br />
+
+        <label for="lastName">Last Name:</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          required
+          placeholder="Dummy Last Name Hint"
+          maxlength="5"
+        />
+        <br /><br />
+        <label for="age">Age:</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          min="1"
+          max="120"
+          step="0.01"
+        />
+      </fieldset>
+      <fieldset>
+        <legend>Set Up User Account</legend>
+        <!--  Type email looks for an @ symbol and email address REGEX -->
+        <label for="email">Email:</label>
+        <input name="email" id="email" type="email" required />
+        <br />
+        <br />
+        <!-- Password input type masks the entered text -->
+        <label for="password">Password:</label>
+        <input name="password" id="password" type="password" required />
+        <br />
+        <br />
+        <label for="userBio">Bio:</label>
+        <textarea
+          name="userBio"
+          id="userBio"
+          rows="10"
+          cols="50"
+          placeholder="Tell us about yourself"
+        ></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Checkbox Groups</legend>
+        <p>
+          Check boxes allow the user to select more than one value at once.
+          Grouped checkboxes (aka for the same answer) all share the same name
+          attribute. The value attribute is what gets sent to the server if that
+          checkbox is checked.
+        </p>
+        <label for="pet">What pets do you have?</label><br />
+
+        <!-- you will sometimes see the label for individual checkboxes wrapped around the input itself -->
+        <!-- When you copy paste checkbox or radio groups make sure you update the label
+        (user sees) and the value (submitted to the db) -->
+        <label><input type="checkbox" name="pet" value="dog" />DOG</label>
+        <label><input type="checkbox" name="pet" value="cat" />CAT</label>
+        <label><input type="checkbox" name="pet" value="bird" />BIRD</label>
+        <label><input type="checkbox" name="pet" value="fish" />FISH</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Radio Groups</legend>
+        <p>
+          Radio groups allow the user to select only one value at a time.
+          Grouped radio buttons (aka for the same answer) all share the same
+          name attribute. The value attribute is what gets sent to the server if
+          that radio button is selected.
+        </p>
+        <label for="favorite">Which ones your favorite?</label><br />
+
+        <!-- you will sometimes see the label for individual checkboxes wrapped around the input itself -->
+        <!-- When you copy paste checkbox or radio groups make sure you update the label
+        (user sees) and the value (submitted to the db) -->
+        <label><input type="radio" name="favorite" value="dog" />DOG</label>
+        <label><input type="radio" name="favorite" value="cat" />CAT</label>
+        <label><input type="radio" name="favorite" value="bird" />BIRD</label>
+        <label><input type="radio" name="favorite" value="fish" />FISH</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Dropdowns or Select Options</legend>
+        <label for="state">Pick a State:</label>
+        <!-- Select element wraps the grouped options for the dropdown -->
+        <!-- The plain text is what the user sees, the value is what gets sent to the server -->
+        <select name="state" id="state">
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+        </select>
+      </fieldset>
+      <!-- Any button will submit the form if its inside the form tag -->
+      <button role="button">Submit Form</button>
+
+      <!-- This is how you use an input type as your submit button -->
+      <input name="submit" value="Submit Form" type="button" />
+    </form>
+
+    <p><a href="#top">Back to Top</a></p>
+  </body>
+</html>
