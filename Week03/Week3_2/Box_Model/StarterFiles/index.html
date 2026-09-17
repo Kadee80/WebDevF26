@@ -7,23 +7,26 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <!-- We build the float / clear-fix layout together in class.
-         Everything you need is in README.md. -->
+    <!-- We build the nav bar and photo grid layouts together in class,
+         using display: inline-block. Everything you need is in README.md. -->
 
     <h1>The Box Model</h1>
 
     <h3>In Class Exercise</h3>
     <!--
-      The layout below needs air between the thumbnails.
-      Using PIXELS, add margin to .container-inclass or subtract from
-      .thumbnail-inclass so this sits in one row of four columns.
+      The layout below needs air between the cards.
+      Using PIXELS, add margin to .gallery-inclass or subtract from
+      .gallery-item-inclass so this sits in one row of four columns.
+      You'll also need display: inline-block on the cards, and you'll
+      probably run into the whitespace-gap issue from class -- deal with
+      it however you'd like.
       Start from scratch in css/styles.css -- do not copy the earlier rules.
     -->
-    <div class="container-inclass clear-fix">
-      <div class="thumbnail-inclass"></div>
-      <div class="thumbnail-inclass"></div>
-      <div class="thumbnail-inclass"></div>
-      <div class="thumbnail-inclass"></div>
+    <div class="gallery-inclass">
+      <div class="gallery-item-inclass"></div>
+      <div class="gallery-item-inclass"></div>
+      <div class="gallery-item-inclass"></div>
+      <div class="gallery-item-inclass"></div>
     </div>
   </body>
 </html>

@@ -1,26 +1,34 @@
 # Box Model and Layout 101
 
-Our pure HTML pages have some default styles applied, but what if we want a more complicated layout? 
+Our pure HTML pages have some default styles applied, but what if we want a more complicated layout?
 
-CSS allows us to take our **HTML content**, and define **styles** for how things look and how a page is layed out visually. This tutorial will go over a few **CSS properties** that effect the **box model**. Once we get these concepts under our belt, we can start worrying about colors,fonts, shadows, and more "designy" properties. 
+CSS allows us to take our **HTML content**, and define **styles** for how things look and how a page is layed out visually. This tutorial will go over a few **CSS properties** that effect the **box model**. Once we get these concepts under our belt, we can start worrying about colors, fonts, shadows, and more "designy" properties.
 
-When we looked at semantic markup and wireframes. We used tags like `<header>` or `<aside>` to help organize our content, but nothing really rendered much differently on our page. Today we will start defining styles and introducing some more HTML elements to effect the presenatation of a few simple `<div>` elements. Once we have that under out belt, we will take a look at a few common page layouts and how to style them.
+When we looked at semantic markup and wireframes, we used tags like `<header>` or `<aside>` to help organize our content, but nothing really rendered much differently on our page. Today we will start defining styles and introducing some more HTML elements to effect the presentation of a few simple elements. Once we have that under our belt, we will take a look at a couple of common page layouts and how to build them.
+
+> **Quick reference:** [LAYOUTS.md](LAYOUTS.md) has both of today's layouts built
+> three ways side by side, with screenshots. For the live version you can poke at,
+> open [`layout-playbook.html`](layout-playbook.html) in your browser.
 
 #### A Note on Block vs Inline Elements
 
-* Block elements will always start a new line, and take up the full width of its parent element (or browser). Block elements can recieve a height and width.
+* Block elements will always start a new line, and take up the full width of their parent element (or browser). Block elements can receive a height and width.
 
-* Inline elements do not start a new line, and only take up as much space as they require (you can stack them horizontally as long as there is enough room).
+* Inline elements do not start a new line, and only take up as much space as they require (you can stack them horizontally as long as there is enough room). Inline elements ignore `width` and `height`.
 
-**^We need to keep this in mind when figuring our out layouts and dimensions- more on that in the next Lesson**
+* There's a third option that gives us the best of both: **`display: inline-block`**. It sits side-by-side like an inline element, but accepts `width` and `height` like a block element. That's the tool we're reaching for today.
+
+**^We need to keep this in mind when figuring out our layouts and dimensions.**
+
+> A note on floats: you'll see `float: left` used for layout in a lot of older tutorials and Stack Overflow answers from the 2010s. It works, but it pulls the element out of the normal flow of the page (its parent doesn't even "see" it anymore, which causes all kinds of collapsing-container bugs), and fixing that takes an extra hack called a clearfix. `inline-block` gets us side-by-side boxes without any of that. You don't need floats for layout anymore — flexbox and grid (preview at the end of this doc, deep dive in a few weeks) replaced them for good reason.
 
 ## Tag Selectors
 
-Tag/Element selectors apply to every instance of the tag on the page unless overridden by a more secific tag .class or #id selector.
+Tag/Element selectors apply to every instance of the tag on the page unless overridden by a more specific tag, `.class`, or `#id` selector.
 
 ### Global Body Styles
 
-Applying styles to body tag will trickle down to all child components unless overwritten with a more specific style. Lets start by changing some font styles across the entire page.
+Applying styles to the `body` tag will trickle down to all child components unless overwritten with a more specific style. Let's start by changing some font styles across the entire page.
 
 ```css
 body{
@@ -29,249 +37,271 @@ body{
       font-style: italic;
     }
 ```
-Now lets use a tag selector to add a transparent bg to all divs on our page so we can see our div/boxes better.
+
+Now let's use a tag selector to add a transparent background to all divs on our page so we can see our boxes better.
 
 ```css
 div {
         background-color: rgba(0, 0, 200, 0.1);
     }
 ```
-## Initial Content
 
-All of our examples are going to start with a container div, and then some content divs within that will represent our grid of content.
+## Layout 1: A Nav Bar
+
+Nav bars are the classic real-world example of "I need a list of things to sit in a row instead of stacking." Our starting markup is just a `<ul>` of links — completely unstyled, it'll stack vertically because `<li>` is a block element by default.
 
 ```html
-<div class="container">
-  <div class="thumbnail"></div>
-  <div class="thumbnail"></div>
-  <div class="thumbnail"></div>
+<nav>
+  <ul class="nav">
+    <li class="nav-item"><a href="#">Home</a></li>
+    <li class="nav-item"><a href="#">Projects</a></li>
+    <li class="nav-item"><a href="#">About</a></li>
+    <li class="nav-item"><a href="#">Contact</a></li>
+  </ul>
+</nav>
+```
+
+```css
+.nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #006FFF;
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+}
+```
+
+Switching `.nav-item` from `display: block` (the `<li>` default) to `display: inline-block` is all it takes to get them sitting in a row. Notice we didn't need a clearfix here — `inline-block` elements stay in the normal flow of the page, so the parent `<ul>` still wraps around them correctly.
+
+### The whitespace gap (inline-block's classic gotcha)
+
+Look closely at the rendered nav bar. There's a small gap between each nav item, even though we haven't set any margin on `.nav-item`. What's going on?
+
+`inline-block` elements live in what's called an *inline formatting context* — the same context that handles the words in a paragraph. And in that context, whitespace in your HTML source (including the line break between `</li>` and `<li>`) renders as a real, visible space, the same way a space between two words does.
+
+A few old-school ways people used to deal with this (you'll see these in older code — you don't need to memorize them):
+
+* Remove the whitespace in the HTML entirely, so tags butt up against each other: `<li>Home</li><li>Projects</li>` — works, but it's ugly and easy to break.
+* Comment out the whitespace: `<li>Home</li><!--\n--><li>Projects</li>`
+* Set `font-size: 0` on the parent and reset it on the children — works, but now font-size is doing two jobs.
+
+None of these are great. Keep that thought — we'll see how flexbox and grid make this whole problem disappear at the bottom of this doc.
+
+## Layout 2: A Photo Grid
+
+Our second layout is a grid of cards — think a portfolio or photo gallery. Same idea as the nav bar (get block-level boxes to sit in a row), but now we care about the *size* of each box, not just whether it's inline.
+
+```html
+<div class="gallery">
+  <div class="gallery-item"></div>
+  <div class="gallery-item"></div>
+  <div class="gallery-item"></div>
+  <div class="gallery-item"></div>
 </div>
 ```
 
 ## Pixel Based Fixed Layout
 
-Lets start by styling our base content. You can see we have a class `.container`, applied to the parent div and a class `.thumbnail` applied to the child divs.
-
-
 ```css
-.container {
-        width: 900px;      
+.gallery {
+        width: 900px;
         margin: 0 auto;
         padding: 10px;
     }
 ```
 
-* Start with base width of 900px.
-
-* We can center using margin auto on left/right, margin does not add to the dimensions of our container box. Think of margin as "personal space" outside the box.
-
-* Adding a little padding will add to our original 900px dimensions, now our container is 920px wide, but it gives up a little breathing room.
+* Start with a base width of 900px.
+* We can center using `margin: 0 auto` on left/right — margin does not add to the dimensions of our container box. Think of margin as "personal space" outside the box.
+* Adding a little padding will add to our original 900px dimensions — now our container is 920px wide, but it gives us a little breathing room.
 
 ```css
-.thumbnail {
-    width: 300px;
-    height: 300px;
+.gallery-item {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    vertical-align: top;
 }
 ```
 
-* Give our thumbnail a fixed width of 300px. By default, the thumbnail div will want to take up the full 900px width of its parent container div until we override.
-
+* Give each card a fixed width and height. By default, `.gallery-item` is a `<div>`, which is block, so it'd stack vertically until we switch it to `inline-block`.
+* `inline-block` elements default to `vertical-align: baseline`, which lines boxes up like they were letters sitting on a line of text — that gets weird fast once your boxes have different amounts of content in them. `vertical-align: top` fixes that.
 * Divs have no height until filled by content or given a height via styles.
 
+*(You should also see the whitespace gap between these cards, just like the nav bar — same cause, same fix options.)*
+
+## Borders and their effect on Box Model Dimensions
+
+Now let's update our layout to get a better understanding of how margins, borders, and padding effect the box model and the final dimensions of our elements.
+
+```html
+<div class="gallery">
+    <div class="gallery-item-border"></div>
+    <div class="gallery-item-border"></div>
+    <div class="gallery-item-border"></div>
+</div>
+```
+
 ```css
-.thumbnail {
-    width: 300px;
-    height: 300px;
-    float: left;
+.gallery-item-border {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+    height: 200px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #006FFF;
 }
 ```
 
-* Div and other block elements also "clear" always begin on a new line and do not "share" horizontal space with other elements even if there is room for the next element in the markup. We can force block elements to stack horizonally several ways. Here we will use float and clear.
+Here we used a hexadecimal color to create a blue border — think `#RRGGBB`, see the section on intro to CSS for more info on color values.
 
-*Hey, what happened to our container? It isn't "containing" or wrapping around its child thumbnail divs. Floats are old school and tricky, We can fix this a few ways*
+Hey, the border added 10px total width to each box, much like the margin example above — we need to do some math to figure out the new width of our cards when they contain a border.
 
-#### Solution 1: Fix float issues by added a clear-both element after the last floated element
+If we want three cards with a 5px border on left and right to still fit at 200px each:
+`200px - 2*5px = 190px` of that 200px is now border, not content.
+
+## Padding and its effect on Box Model Dimensions
+
+Let's see how adding padding effects the layout. Notice in this example we have some content within our divs to show how padding effects our layout. This was generated by http://www.lipsum.com — a great website for generating placeholder text for testing out layouts!
+
+```html
+<div class="gallery">
+    <div class="gallery-item-border-padding">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit sit amet purus at iaculis. Morbi lorem metus, facilisis fermentum metus id, tincidunt ullamcorper augue.</div>
+    <div class="gallery-item-border-padding">Fusce euismod nisl at dui venenatis, a fermentum quam tristique. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</div>
+    <div class="gallery-item-border-padding">Vestibulum id urna facilisis, aliquam lacus eget, euismod lorem. Proin et sollicitudin purus. Sed euismod erat a posuere viverra.</div>
+</div>
+```
 
 ```css
-.clear {
-        clear: both;
-    }
+.gallery-item-border-padding {
+    display: inline-block;
+    vertical-align: top;
+    width: 190px;
+    height: 190px;
+    border: 5px solid #006FFF;
+    /* Much nicer, but the padding below adds 40px to each div's dimensions! Rework width/height to account for it. */
+    padding: 20px;
+    width: 150px;
+    height: 150px;
+}
 ```
+
+* Shorthand for border: `width | style | color`
+* The text is right up against the border, not very user friendly and hard to read. We fix that with `padding: 20px`.
+* But that padding added 40px to each div's dimensions (20px on every side), so we shrink `width`/`height` again to compensate.
+
+## Percentage Based Fluid Layouts
+
+Browser windows come in all sizes — more on media queries and responsive mobile styles later in the course — but if we want a more scalable, fluid layout we can use percentages instead of pixels.
 
 ```html
-<div class="container">
-  <div class="thumbnail"></div>
-  <div class="thumbnail"></div>
-  <div class="thumbnail"></div>
-  <br class="clear">
-</div>
-
-That worked, but we are adding an extra dummy element on our page for layout purposes. Remember HTML is responsible for CONTENT, CSS is responsible for LAYOUT, here is a cleaner CSS solution.
-
-#### Solution 2: Apply clear-fix class to the container element
-
-```
-.clear-fix::after {
-        display: block;
-        clear: both;
-        /* ensure some older compatability */
-        height: 0;
-        font-size: 0;
-        content: " ";
-        /* extra backup */
-        visibility: hidden;
-    }
-```
-Notice a new selector type, a pseudo element selector! https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements - pseudo-elements are added to tags/classes/ids and allow you to style certain parts of a element. In this case we are applying styles after an element with the the class .clear-fix applied to it. In our case we want to apply it to the container element. We can apply more than one class to an element by just listing them in order:
-
-`<div class="container clear-fix">`
-
-```html
-<div class="container clear-fix">
-    <div class="thumbnail"></div>
-    <div class="thumbnail"></div>
-    <div class="thumbnail"></div>
+<div class="gallery-fluid">
+    <div class="gallery-item-fluid"></div>
+    <div class="gallery-item-fluid"></div>
+    <div class="gallery-item-fluid"></div>
+    <div class="gallery-item-fluid"></div>
 </div>
 ```
 
-### Percentage Based Fluid Layouts
-
-Browser windows come in all sizes, more on media queries and responsive mobile styles later in the course, but if we want a more scalable fluid layout we can use percentages instead of pixels.
-
-In this example we will still use floats and our `.clear-fix` class to stack our elements, but thier dimensions will now be determines using %.
-
-```html
-<div class="container-fluid clear-fix">
-    <div class="thumbnail-fluid"></div>
-    <div class="thumbnail-fluid"></div>
-    <div class="thumbnail-fluid"></div>
-    <div class="thumbnail-fluid"></div>
-</div>
-```
 ```css
-.container-fluid {
+.gallery-fluid {
     width: 90%;
     margin: 0 auto;
     padding: 2%;
 }
 ```
 
-* here we are using %. % always refers to the percentage of possible width an element can take up. Since the container has no parent element (except body which takes up 100% of broser by default), our container will take up 90% of the browser width with equal margins on the left and right.
+* `%` always refers to the percentage of possible width an element can take up, relative to its **parent**. Since `.gallery-fluid` has no parent except `body` (which takes up 100% of the browser by default), our container will take up 90% of the browser width with equal margins on the left and right.
 
-* We can use any unit of measure to add padding here. Its usually easier to keep track of tota; width possible by sticking with 1 unit. For example here we are taking up 94% of our browser after taking into account padding
+Notice our fixed-pixel card doesn't jive with our percentage-based container so well. Let's make a 4-column grid using percentages. We still need pixels for height, so our empty divs have something to display.
 
-Notice our pixel based thumbnail doesnt jive with our percentage based container so well. Lets make a 4 column grid using percentages. We still need to use pixels for height so that something so that our empty divs still display.
-
-css
-```
-.thumbnail-fluid {
+```css
+.gallery-item-fluid {
+    display: inline-block;
+    vertical-align: top;
     width: 25%;
-    height: 300px;
-    float: left;
+    height: 200px;
     margin: 0 1%;
 }
 ```
 
-We added some spacing via margin to our divs. 
+We added some spacing via margin to our cards.
 
-Note that 4x25% + 8*1% = 108%. 
+Note that `4 * 25% + 8 * 1% = 108%`. That's going to push the last card onto a new line. Why `* 8`? Because we have 1% on the left *and* 1% on the right of each of our 4 cards. Let's fix the math so we land on 100%:
 
-Thats going to cause the last thumbnail to render on a new line. Why * 8? Because we have 1% on the left and 1% on the right. Lets modify our margin and width to = 100%.
-
-* Lets make a margin of 2% on each side. 
-
-* `100% - 8*2% = 84% ` left for our thumbnail dimensions
-
-* Assuming a 4 column layout,  `84%/4= 21%`
+* `100% - 8*2% = 84%` left over for our card widths, once we bump the margin to 2% each side.
+* Split 4 ways: `84% / 4 = 21%`.
 
 ```css
-.thumbnail-fluid {
+.gallery-item-fluid {
+    display: inline-block;
+    vertical-align: top;
     width: 21%;
     margin: 0 2%;
-    float:left;
 }
 ```
 
-## Borders and thier effect on Box Model Dimensions
+*Doing this margin math by hand, every time, for every layout, is exactly the kind of busywork flexbox and grid exist to get rid of — see below.*
 
-Now lets break and update our original pixel based layout to get a better understanding of how margins, borders, and padding effect our box-model and final dimensions of our elements.
+## The Modern Way: Same Layouts, Flexbox and Grid
 
-```html
-<div class="container clear-fix">
-    <div class="thumbnail-border"></div>
-    <div class="thumbnail-border"></div>
-    <div class="thumbnail-border"></div>
-</div>
-```
+Everything above is a real, useful technique — `inline-block` still shows up in real codebases, and the box-model math you just did (border, padding, percentages) applies **everywhere**, including flexbox and grid. But watch what happens to our two layouts when we change one property on the parent.
+
+### Nav bar → Flexbox
+
 ```css
-.thumbnail-border {
-    width: 300px;
-    height: 300px;
-    float: left;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #006FFF; 
+.nav {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 ```
-Here we used a hexidecimal color to create a blue/green border, think #RRGGBB, see the section on intro to CSS for more info on color values.
 
-Hey the border added 10px to either side, much like the margins example above, we need to do some math to figure out the new width of our thumbnails whenthey contain a border.
-        
-If our container has 900px that accepts content (More on padding and content in the next section) and we have 3 thumbnails with 5px border on left and right: 
-`300px - 2*5px = 290px`
+`display: flex` on the parent is enough to lay the `<li>` children out in a row — no `inline-block` needed on the children at all, and the whitespace-gap problem is simply gone. `gap: 8px` gives us real spacing, with no margin math and no doubled-up margins to account for.
 
-## Padding thier effect on Box Model Dimensions
+### Photo grid → CSS Grid
 
-Lets see how adding padding effects the layout. Notice in this example we have some content within our divs to show how padding effects our layout. This was generated by http://www.lipsum.com a great website for generating placeholder text for testing out layouts!
-
-```html
-<div class="container clear-fix">
-    <div class="thumbnail-border-padding">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit sit amet purus at iaculis. Morbi lorem metus, facilisis fermentum metus id, tincidunt ullamcorper augue. Cras tortor dolor, varius ac mi eu, mattis sodales sapien. Proin faucibus pellentesque dignissim.  </div>
-    <div class="thumbnail-border-padding">Fusce euismod nisl at dui venenatis, a fermentum quam tristique. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut nec velit nec tortor eleifend pretium.</div>
-    <div class="thumbnail-border-padding">
-      Vestibulum id urna facilisis, aliquam lacus eget, euismod lorem. Proin et sollicitudin purus. Sed euismod erat a posuere viverra. Aliquam interdum dolor a risus scelerisque fermentum eget congue nulla. Duis in lectus.
-    </div>
-</div>
-```
 ```css
-.thumbnail-border-padding {
-    width: 290px;
-    height: 290px;
-    float: left;
-    border: 5px solid #006FFF;
-   /* Much nicer but the padding added 40px to each div's dimensions! Lets rework our width and height again to account for this */
-   width: 250px;
-   height: 250px;       
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2%;
+}
+
+.gallery-item {
+    height: 200px;
 }
 ```
-* Shorthand for border: width | style | color */
 
-* The text is right up against the border, not very user friendlty and hard to read. We can fix this with padding.
+Compare `grid-template-columns: repeat(4, 1fr)` to the percentage math we just did by hand (`84% / 4 = 21%`, remember to double the margins...). Grid does that arithmetic for us, and `gap` handles spacing without the doubled-up-margin trick.
 
-```
-padding: 20px;
-```
+All three versions of both layouts are lined up side by side in [LAYOUTS.md](LAYOUTS.md), and running live in [`layout-playbook.html`](layout-playbook.html).
 
-* Much nicer but the padding added 40px to each div's dimensions! Lets rework our width and height again to account for this:
+**We're not teaching flexbox or grid syntax in depth today** — that's Week 4 for flexbox and Week 9 for CSS Grid. For now, just notice what disappeared: no whitespace-gap hack, no `vertical-align: top` fix, no percentage math, and a real `gap` property. Everything you learned today about width, height, border, padding, and margin still applies once we get there — the box model doesn't change, just the tools for arranging boxes.
 
-```
-width: 250px;
-height: 250px; 
-```
+## In Class Exercise:
 
-## In Class Exercise: 
+Our cards below need some air between them. Using `display: inline-block` and pixel margins, rework either the container class (addition) or the card class (subtraction) to make the layout work in 1 row and 4 columns — and deal with the whitespace gap however you'd like.
 
-Our layout with borders and padding on our thumbnails need a little air between eachother. 
-Using pixels to add margin, rework either the container class (addition) or the thumnail class (subtraction) to make the layout work in 1 row and 4 columns. 
-Use the following new classnames and start from scratch.
+Use the following new class names and start from scratch.
 
 ```
 <h3>In Class Exercise</h3>
-<div class="container-inclass clear-fix">
-    <div class="thumbnail-inclass"></div>
-    <div class="thumbnail-inclass"></div>
-    <div class="thumbnail-inclass"></div>
-    <div class="thumbnail-inclass"></div>
+<div class="gallery-inclass">
+    <div class="gallery-item-inclass"></div>
+    <div class="gallery-item-inclass"></div>
+    <div class="gallery-item-inclass"></div>
+    <div class="gallery-item-inclass"></div>
 </div>
 ```
-

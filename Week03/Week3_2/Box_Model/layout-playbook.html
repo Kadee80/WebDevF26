@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Layout Playbook | Inline-Block, Flexbox, Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-2: #edf1f9;
+    --border: #d8e0ef;
+    --ink: #171e2b;
+    --ink-soft: #5c6678;
+    --accent: #0a63e6;
+    --accent-soft: #e6f0ff;
+    --warn: #a3590c;
+    --warn-soft: #fbf0de;
+    --good: #12775c;
+    --good-soft: #e2f5ee;
+    --code-bg: #101728;
+    --code-ink: #d9e3f7;
+    --code-accent: #8dc0ff;
+    --code-comment: #7c8aa8;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c101c;
+      --surface: #131a2b;
+      --surface-2: #1a2338;
+      --border: #2b3652;
+      --ink: #e9eefb;
+      --ink-soft: #9aa7c4;
+      --accent: #6fa4ff;
+      --accent-soft: #1d2c4a;
+      --warn: #ffb75a;
+      --warn-soft: #3a2a10;
+      --good: #5fd9ae;
+      --good-soft: #113026;
+      --code-bg: #090d18;
+      --code-ink: #d9e3f7;
+      --code-accent: #8dc0ff;
+      --code-comment: #6b7794;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c101c;
+    --surface: #131a2b;
+    --surface-2: #1a2338;
+    --border: #2b3652;
+    --ink: #e9eefb;
+    --ink-soft: #9aa7c4;
+    --accent: #6fa4ff;
+    --accent-soft: #1d2c4a;
+    --warn: #ffb75a;
+    --warn-soft: #3a2a10;
+    --good: #5fd9ae;
+    --good-soft: #113026;
+    --code-bg: #090d18;
+    --code-ink: #d9e3f7;
+    --code-accent: #8dc0ff;
+    --code-comment: #6b7794;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Manrope", system-ui, -apple-system, sans-serif;
+    padding-inline: 16px;
+    padding-block: 28px 56px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+
+  header.page { margin-bottom: 28px; }
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  h1 {
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 6px 0 10px;
+    text-wrap: balance;
+  }
+  .sub {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.55;
+    max-width: 640px;
+    margin: 0;
+  }
+  .sub code { font-family: "JetBrains Mono", monospace; font-size: 0.92em; }
+
+  nav.jump {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  nav.jump a {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12.5px;
+    text-decoration: none;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+
+  section.layout { margin-top: 44px; }
+  .layout-head { margin-bottom: 16px; }
+  .layout-head h2 {
+    font-size: 21px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .layout-head p {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 640px;
+  }
+
+  .markup {
+    background: var(--code-bg);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 14px 0 20px;
+    overflow-x: auto;
+  }
+  .markup pre {
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--code-ink);
+    white-space: pre;
+  }
+  .markup .tag { color: var(--code-accent); }
+  .markup .cm { color: var(--code-comment); }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 760px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .card-top h3 {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 4px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.warn { background: var(--warn-soft); color: var(--warn); }
+  .badge.good { background: var(--good-soft); color: var(--good); }
+
+  .stage {
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    min-height: 92px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ---- nav demo ---- */
+  .demo-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .demo-nav li {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .stage-nav-ib { font-size: 19px; } /* exaggerates the source-whitespace gap so it reads at demo size */
+  .stage-nav-ib li { display: inline-block; margin: 0; font-size: 12px; }
+  .stage-nav-flex { display: flex; gap: 6px; flex-wrap: wrap; }
+  .stage-nav-grid { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; gap: 6px; }
+
+  /* ---- gallery demo ---- */
+  .demo-gallery { width: 100%; }
+  .demo-gallery .tile {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 13px;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .tile:nth-child(1) { background: linear-gradient(135deg,#0a63e6,#5aa0ff); }
+  .tile:nth-child(2) { background: linear-gradient(135deg,#12775c,#3fbf95); }
+  .tile:nth-child(3) { background: linear-gradient(135deg,#a3590c,#e8a13f); }
+  .tile:nth-child(4) { background: linear-gradient(135deg,#7a3ce6,#b88bff); }
+
+  .stage-gal-ib { font-size: 19px; }
+  .stage-gal-ib .tile { display: inline-block; vertical-align: top; width: 23%; font-size: 13px; }
+  .stage-gal-flex { display: flex; gap: 3%; flex-wrap: wrap; }
+  .stage-gal-flex .tile { flex: 1 1 21%; }
+  .stage-gal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3%; }
+
+  .card-code {
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 10px 12px;
+    overflow-x: auto;
+  }
+  .card-code pre {
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--code-ink);
+  }
+  .card-code .cm { color: var(--code-comment); }
+  .card-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  table.compare {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 13.5px;
+  }
+  table.compare th, table.compare td {
+    border: 1px solid var(--border);
+    padding: 9px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  table.compare th {
+    background: var(--surface-2);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  table.compare td.yes { color: var(--warn); font-weight: 700; }
+  table.compare td.no { color: var(--good); font-weight: 700; }
+  .table-wrap { overflow-x: auto; }
+
+  footer.page {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: var(--ink-soft);
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="page">
+    <div class="eyebrow">DM-UY 2193 · Box Model &amp; Layout 101</div>
+    <h1>Same layout, three engines</h1>
+    <p class="sub">
+      One nav bar, one photo grid — each built three ways. <code>display: inline-block</code>
+      is the technique for today's class; flexbox and grid are the quick preview at the
+      end. Every demo below is real, live CSS, not a screenshot.
+    </p>
+    <nav class="jump">
+      <a href="#nav-bar">Nav bar →</a>
+      <a href="#photo-grid">Photo grid →</a>
+      <a href="#compare">Comparison table →</a>
+    </nav>
+  </header>
+
+  <section class="layout" id="nav-bar">
+    <div class="layout-head">
+      <h2>Layout 1 — Nav Bar</h2>
+      <p>A one-row list of links. This is the classic real-world case for getting
+        block-level items to sit side by side.</p>
+    </div>
+
+    <div class="markup">
+      <pre><span class="cm">&lt;!-- same markup for every version below --&gt;</span>
+<span class="tag">&lt;ul&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Home<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Projects<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>About<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Contact<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span></pre>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-top">
+          <h3>inline-block</h3>
+          <span class="badge warn">⚠ whitespace gap</span>
+        </div>
+        <div class="stage">
+          <ul class="demo-nav stage-nav-ib">
+            <li>Home</li>
+            <li>Projects</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="card-code"><pre><span class="cm">/* only li changes */</span>
+li { display: inline-block; }</pre></div>
+        <p class="card-note">The space between pills is real HTML whitespace being
+          rendered like a space between words — not a style. Exaggerated here so it
+          reads at demo size; in real code it's a few px.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>flexbox</h3>
+          <span class="badge good">✓ gap works</span>
+        </div>
+        <div class="stage">
+          <ul class="demo-nav stage-nav-flex">
+            <li>Home</li>
+            <li>Projects</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="card-code"><pre><span class="cm">/* one change, on the parent */</span>
+ul { display: flex; gap: 6px; }</pre></div>
+        <p class="card-note">The whitespace gap is simply gone — flex items aren't in
+          an inline formatting context, so source whitespace between them doesn't
+          render. <code>gap</code> does the spacing instead.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>grid</h3>
+          <span class="badge good">✓ gap works</span>
+        </div>
+        <div class="stage">
+          <ul class="demo-nav stage-nav-grid">
+            <li>Home</li>
+            <li>Projects</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="card-code"><pre><span class="cm">/* also one change on the parent */</span>
+ul {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 6px;
+}</pre></div>
+        <p class="card-note">Works, and no whitespace gap here either — but grid is
+          built for two dimensions. For a single row, flexbox is the more natural
+          tool (that's why the preview in class pairs nav → flexbox).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="layout" id="photo-grid">
+    <div class="layout-head">
+      <h2>Layout 2 — Photo Grid</h2>
+      <p>Four cards, four columns. This time we care about the size of each box, not
+        just whether it's inline.</p>
+    </div>
+
+    <div class="markup">
+      <pre><span class="cm">&lt;!-- same markup for every version below --&gt;</span>
+<span class="tag">&lt;div class="gallery"&gt;</span>
+  <span class="tag">&lt;div class="tile"&gt;&lt;/div&gt;</span>
+  <span class="tag">&lt;div class="tile"&gt;&lt;/div&gt;</span>
+  <span class="tag">&lt;div class="tile"&gt;&lt;/div&gt;</span>
+  <span class="tag">&lt;div class="tile"&gt;&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-top">
+          <h3>inline-block</h3>
+          <span class="badge warn">⚠ hand-done math</span>
+        </div>
+        <div class="stage">
+          <div class="demo-gallery stage-gal-ib">
+            <div class="tile">1</div><div class="tile">2</div><div class="tile">3</div><div class="tile">4</div>
+          </div>
+        </div>
+        <div class="card-code"><pre><span class="cm">/* width % worked out by hand,
+   vertical-align keeps tops even */</span>
+.tile {
+  display: inline-block;
+  vertical-align: top;
+  width: 23%;
+}</pre></div>
+        <p class="card-note">Spacing here is the same source-whitespace effect as the
+          nav bar — fine for a demo, fragile in real code. No <code>gap</code>
+          property exists for plain inline-block.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>flexbox</h3>
+          <span class="badge good">✓ gap works</span>
+        </div>
+        <div class="stage">
+          <div class="demo-gallery stage-gal-flex">
+            <div class="tile">1</div><div class="tile">2</div><div class="tile">3</div><div class="tile">4</div>
+          </div>
+        </div>
+        <div class="card-code"><pre><span class="cm">.gallery { display: flex; gap: 3%; }
+.tile { flex: 1 1 21%; }</pre></div>
+        <p class="card-note">Rows equalize height automatically (<code>align-items</code>
+          defaults to stretch) — no <code>vertical-align</code> fix needed.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>grid</h3>
+          <span class="badge good">✓ no math</span>
+        </div>
+        <div class="stage">
+          <div class="demo-gallery stage-gal-grid">
+            <div class="tile">1</div><div class="tile">2</div><div class="tile">3</div><div class="tile">4</div>
+          </div>
+        </div>
+        <div class="card-code"><pre><span class="cm">.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3%;
+}</pre></div>
+        <p class="card-note">Compare <code>repeat(4, 1fr)</code> to working out
+          <code>84% / 4</code> by hand. This is grid's sweet spot: a real
+          two-dimensional grid of equal-sized boxes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="layout" id="compare">
+    <div class="layout-head">
+      <h2>At a glance</h2>
+      <p>What each technique costs you, and where it's actually taught this semester.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="compare">
+        <thead>
+          <tr><th></th><th>inline-block</th><th>flexbox</th><th>grid</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Whitespace gap between items</td>
+            <td class="yes">Yes</td><td class="no">No</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td>Needs a <code>vertical-align</code> fix</td>
+            <td class="yes">Yes, for uneven content</td><td class="no">No</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td>Real <code>gap</code> property</td>
+            <td class="yes">No</td><td class="no">Yes</td><td class="no">Yes</td>
+          </tr>
+          <tr>
+            <td>Column math done by hand</td>
+            <td class="yes">Yes (% width + margin)</td><td>Partly (flex-basis)</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td>Natural fit</td>
+            <td>Small inline bits, text-flow content</td><td>One row or column (1D)</td><td>Rows &amp; columns together (2D)</td>
+          </tr>
+          <tr>
+            <td>Deep dive</td>
+            <td>Today — Week 3</td><td>Week 4</td><td>Week 9</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page">
+    Reference for the Week 3 Box Model lesson, DM-UY 2193. The box-model math
+    (border, padding, margin) is identical across all three techniques — only how
+    boxes get arranged next to each other changes.
+  </footer>
+</div>
+
+</body>
+</html>
