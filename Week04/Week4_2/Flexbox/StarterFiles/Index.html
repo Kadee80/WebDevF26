@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flexbox Layouts</title>
+    <!-- https://fonts.google.com/icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&icon_names=arrow_upload_ready"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <h2>Flex Container and Item Default Layout</h2>
+    <div class="container">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">3</div>
+    </div>
+
+    <h2>Justify Start, Align Start</h2>
+    <div class="container justify-start align-start">
+      <div class="item center">1</div>
+      <div class="item center">2</div>
+      <div class="item center">3</div>
+      <div class="item center">3</div>
+    </div>
+
+    <h2>Justify End, Align End</h2>
+    <div class="container justify-end align-end">
+      <div class="item center">1</div>
+      <div class="item center">2</div>
+      <div class="item center">3</div>
+      <div class="item center">3</div>
+    </div>
+
+    <h2>Justify Center, Align Center</h2>
+    <div class="container justify-center align center">
+      <div class="item center">1</div>
+      <div class="item center">2</div>
+      <div class="item center">3</div>
+      <div class="item center">3</div>
+    </div>
+
+    <h2>Justify Between, Align Stretch</h2>
+    <div class="container justify-between align-stretch">
+      <div class="item center">1</div>
+      <div class="item center">2</div>
+      <div class="item center">3</div>
+      <div class="item center">4</div>
+    </div>
+
+    <h2>Justify Around, Align Center</h2>
+    <div class="container justify-around align-center">
+      <div class="item center">1</div>
+      <div class="item center">2</div>
+      <div class="item center">3</div>
+      <div class="item center">4</div>
+    </div>
+
+    <h2>Justify Evenly, Align Center, Align Self</h2>
+    <div class="container justify-even align-center">
+      <div class="item center">1</div>
+      <div class="item center align-self">2</div>
+      <div class="item center">3</div>
+      <div class="item center">4</div>
+    </div>
+
+    <hr />
+
+    <!-- Classic Layout Example -->
+
+    <header>
+      <h2>Logo Here</h2>
+      <h3>Nav Here</h3>
+    </header>
+    <div class="wrapper">
+      <main class="grid-container">
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+        <div class="grid-item">
+          <img
+            src="https://placecats.com/g/400/400"
+            alt="Adorable cat in image grid"
+          />
+        </div>
+      </main>
+      <aside class="secondary-nav">
+        <h3>Secondary Nav</h3>
+        <nav>
+          <ul class="menu">
+            <li>
+              <a href="#"
+                ><span class="material-symbols-outlined">
+                  arrow_upload_ready </span
+                >Link 1</a
+              >
+            </li>
+
+            <li>
+              <a href="#"
+                ><span class="material-symbols-outlined">
+                  arrow_upload_ready </span
+                >Link 2</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+
+    <footer>
+      <h6>Social Media Icons Here</h6>
+    </footer>
+  </body>
+</html>
