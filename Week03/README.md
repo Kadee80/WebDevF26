@@ -5,8 +5,8 @@
 - [Information Architecture](Week3_1/Information_Architecture/README.md)
 - [Routes, Directories, Links and URLS](Week3_1/Links_Directories_Servers/README.md)
 - [User Experience](Week3_1/UX/README.md)
-- [Box Model and Layout 101](Week3_2/Box_Model/README.md)
 - [CSS Cascading Style Sheets](Week3_2/Intro_CSS/README.md)
+- [In-class example, Sep 17: inline-block nav](Week3_2/Box_Model/InClassExercise/index.html) — the Box Model lesson continues in [Week 4](../Week04/Week4_1/Box_Model/README.md)
 
 ## Homework
 
