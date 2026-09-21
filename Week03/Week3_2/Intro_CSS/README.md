@@ -1,7 +1,5 @@
 # CSS Cascading Style Sheets
 
-[CSS Syntax, Vocabulary and Selectors](https://docs.google.com/presentation/d/1juCrEEMZjCMUyVPI49vLHXzQLvY3hIYz1Ll9ThtKQHw/edit?usp=sharing)
-
 \*_Cascading Style Sheets (CSS)_: is a simple mechanism for adding style (e.g. fonts, colors, layouts) to Web documents. Styles provide powerful control over the _presentation_ of web pages.
 
 - A style sheet consists of a set of rules.
@@ -32,20 +30,20 @@ Inline > Internal > External**
 
 #### Internal Style Sheet
 
-````html
+```html
 <!DOCTYPE html>
 <html>
   <head>
     <title>Internal Style Sheet Example</title>
     <style type="text/css">
       body {
-        background-color: #f8f8f8;
+        background-color: #ff0000;
       }
     </style>
   </head>
   <body></body>
 </html>
-``
+```
 
 #### External Style Sheet
 
@@ -54,7 +52,7 @@ We link to an external style sheet in between our <head> tags of our html:
 
 ```html
 <link href=“URL of CSS File" rel="stylesheet" type="text/css" />
-````
+```
 
 A style sheet might look like this:
 

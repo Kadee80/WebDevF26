@@ -3,7 +3,8 @@
 ## Class notes
 
 - **Tuesday:** [Box Model and Layout 101](Week4_1/Box_Model/README.md)
-- **Thursday:** [Flexbox and Responsive Layouts](Week4_2/Flexbox/README.md)
+- **Tuesday:** [NYC Gallery](Week4_1/Gallery/README.md)
+- **Thursday:** [Flexbox](Week4_2/Flexbox/README.md)
 
 ## Homework
 
