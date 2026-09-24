@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+/*
+
+PARENT/CONTAINER/THE THING THAT DISPLAY FLEX
+Display flex is applied to the parent element, aka the thing that contains the items you want to stack
+Flex direction defaults to row
+Flex-wrap defaults to nowrap which mean all items within will squish onto one line/row
+Justify Content - applies to the container/element that displays flex [ main axis ]
+Align items - applies to the container/element that displays flex [ cross axis ]
+align-items defaults to stretch (which fills the parent container height, 
+unless the flex-items (children) have a defined height, then height wins
+*/
+
+/* base classes */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  /* if you want your items to wrap/stack
+   onto a new line when they run out of space
+   you have to saw flex-wrap: wrap
+   default behavior is to squish/flex each item to fit in one row
+   */
+  flex-wrap: wrap;
+  border: 1px solid purple;
+  background-color: rgba(255, 0, 255, 0.3);
+  min-height: 400px;
+}
+
+.item {
+  width: 21%;
+  height: 300px;
+  border: 1px solid cornflowerblue;
+  background-color: rgba(0, 0, 255, 0.3);
+}
+
+/* variations using atomic css */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-even {
+  justify-content: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+/* align items gets applied to the cross axis */
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+/* any element that is a direct descendant of an element that has the class align-stretch */
+.align-stretch > * {
+  height: auto;
+}
+
+.align-self {
+  align-self: stretch;
+  height: auto;
+}
