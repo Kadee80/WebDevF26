@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dropdown patterns — four variants of the same idea</title>
+    <style>
+/* ==========================================================================
+   Dropdown patterns — four variants of one technique.
+
+   Read this file top to bottom: the SHARED block is the whole lesson, and
+   each numbered block after it is two or three lines of difference.
+   ========================================================================== */
+
+:root {
+  --ink: #16181d;
+  --bar: #14161b;
+  --bar-2: #21252e;
+  --paper: #f6f7f9;
+  --muted: #6b7280;
+  --line: #e4e7ec;
+  --accent: #c1440e;
+  --radius: 10px;
+  --speed: 0.18s;
+  --hold: 0.25s; /* how long a menu waits before closing */
+  --font: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial,
+    sans-serif;
+  --mono: 'SF Mono', Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 1.25rem 4rem;
+  font-family: var(--font);
+  color: var(--ink);
+  background-color: var(--paper);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   SHARED — every menu on this page uses all of this
+   ========================================================================== */
+
+.bar {
+  background-color: var(--bar);
+  border-radius: var(--radius);
+}
+
+.menu-bar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.menu-bar > li {
+  position: relative; /* the positioning parent */
+}
+
+.menu-bar a {
+  display: block;
+  padding: 0.9rem 1rem;
+  color: #d8dce4;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: color var(--speed) ease, background-color var(--speed) ease;
+}
+
+.menu-bar a:hover,
+.menu-bar a:focus-visible {
+  color: #fff;
+  background-color: var(--bar-2);
+}
+
+/* the panels: a submenu and a mega panel hide and show identically */
+.submenu,
+.mega {
+  position: absolute;
+  z-index: 10;
+  background-color: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 28px rgba(16, 18, 23, 0.18);
+
+  /* opacity + visibility, NOT display: none — display cannot be transitioned,
+     and opacity alone would leave an invisible menu you can still click */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+
+  /* the delay here runs on the way OUT: a grace period before it closes */
+  transition: opacity var(--speed) ease var(--hold),
+    transform var(--speed) ease var(--hold),
+    visibility 0s linear calc(var(--speed) + var(--hold));
+}
+
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem;
+  min-width: 15rem;
+  top: 100%;
+  left: 0;
+}
+
+/* :hover for the mouse, :focus-within for the keyboard */
+.has-menu:hover > .submenu,
+.has-menu:focus-within > .submenu,
+.has-mega:hover > .mega,
+.has-mega:focus-within > .mega {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity var(--speed) ease, transform var(--speed) ease,
+    visibility 0s; /* no delay on the way in */
+}
+
+.submenu li {
+  position: relative; /* so a third level has something to measure from */
+}
+
+.submenu a {
+  padding: 0.6rem 0.8rem;
+  color: #343a46;
+  font-size: 0.92rem;
+  border-radius: 6px;
+}
+
+.submenu a:hover,
+.submenu a:focus-visible {
+  color: var(--ink);
+  background-color: #f1f3f7;
+}
+
+/* the caret: a rotated square with two borders, no image file */
+.caret {
+  display: inline-block;
+  width: 0.38em;
+  height: 0.38em;
+  margin-left: 0.4em;
+  vertical-align: 0.12em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--speed) ease;
+}
+
+.has-menu:hover > a .caret,
+.has-menu:focus-within > a .caret,
+.has-mega:hover > a .caret,
+.has-mega:focus-within > a .caret {
+  transform: rotate(-135deg);
+}
+
+.caret.side {
+  transform: rotate(-45deg); /* points right, for a flyout */
+}
+
+.flyout:hover > a .caret.side,
+.flyout:focus-within > a .caret.side {
+  transform: rotate(-45deg); /* and keeps pointing right */
+}
+
+/* the item to hover in each demo, so nobody has to guess */
+.hot > a {
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+/* ==========================================================================
+   2 — RIGHT-ALIGNED: stop pinning the left, pin the right
+   ========================================================================== */
+
+.push-right {
+  justify-content: flex-end;
+}
+
+.align-right > .submenu {
+  left: auto;
+  right: 0;
+}
+
+/* ==========================================================================
+   3 — MEGA MENU: the parent is the BAR, not the item
+   ========================================================================== */
+
+.mega-bar .menu-bar {
+  position: relative; /* one level up from .menu-bar > li */
+}
+
+/* ...and the li has to give up being a positioning parent, or it wins.
+   "Nearest positioned ancestor" means NEAREST: leave position: relative on
+   the li and the panel measures against the item, not the bar. static is the
+   default value — this line is switching it back off. */
+.mega-bar .menu-bar > li {
+  position: static;
+}
+
+.mega {
+  top: 100%;
+  left: 0;
+  right: 0; /* both sides pinned, so the panel is as wide as the bar */
+  margin-top: 0.4rem;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.mega-col h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mega-col a {
+  display: block;
+  padding: 0.35rem 0;
+  color: #343a46;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.mega-col a:hover,
+.mega-col a:focus-visible {
+  color: var(--accent);
+}
+
+.mega-col.promo {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f6f2ee;
+}
+
+.mega-col.promo p {
+  margin: 0 0 0.6rem;
+  color: #55504b;
+  font-size: 0.9rem;
+}
+
+.promo-link {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   4 — FLYOUT: out to the side instead of down
+   ========================================================================== */
+
+.flyout > .submenu {
+  top: 0;
+  left: 100%;
+  margin-left: 0.25rem;
+}
+
+/* ==========================================================================
+   page furniture — not part of the lesson
+   ========================================================================== */
+
+.page-head,
+.demo,
+.page-foot {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.page-head {
+  padding: 3.5rem 0 2rem;
+}
+
+.page-head h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  letter-spacing: -0.02em;
+}
+
+.page-head p {
+  max-width: 68ch;
+  margin: 0 0 0.5rem;
+  color: #414855;
+}
+
+.hint {
+  color: var(--muted) !important;
+  font-style: italic;
+}
+
+.demo {
+  /* room underneath for the open menu — these are absolutely positioned, so
+     they do not push the page around and the page has to allow for them */
+  padding-bottom: 19rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.demo-head h2 {
+  margin: 2rem 0 0.4rem;
+  font-size: 1.35rem;
+}
+
+.demo-head p {
+  max-width: 68ch;
+  margin: 0 0 1.25rem;
+  color: #414855;
+}
+
+.num {
+  display: inline-grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: #fff;
+  font-size: 0.95rem;
+  vertical-align: 0.1em;
+}
+
+.code {
+  margin: 1.25rem 0 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  background-color: #fff;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #2b3038;
+}
+
+.warn {
+  max-width: 68ch;
+  margin: 1.25rem 0 0;
+  padding: 0.9rem 1.1rem;
+  border-radius: 8px;
+  background-color: #fdf3ec;
+  color: #6b4326;
+  font-size: 0.95rem;
+}
+
+.page-foot {
+  padding-top: 1.5rem;
+}
+
+.page-foot h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.35rem;
+}
+
+.page-foot p {
+  max-width: 68ch;
+  color: #414855;
+}
+
+code {
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+  background-color: #eceff4;
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+.code code {
+  padding: 0;
+  background: none;
+  font-size: 1em;
+}
+    </style>
+  </head>
+  <body>
+    <header class="page-head">
+      <h1>Four dropdowns, one technique</h1>
+      <p>
+        Every menu on this page is a <code>&lt;ul&gt;</code> inside an
+        <code>&lt;li&gt;</code>, hidden until its parent is hovered, and pulled
+        out of the flow with <code>position: absolute</code>. The only thing
+        that changes between them is <strong>what the menu is measured
+        against</strong> and <strong>which edges are pinned</strong>.
+      </p>
+      <p class="hint">Hover the highlighted item in each bar.</p>
+    </header>
+
+    <!-- ================================================================= 1 -->
+    <section class="demo">
+      <div class="demo-head">
+        <h2><span class="num">1</span> The basic dropdown</h2>
+        <p>
+          Menu hangs below its parent, left edges lined up. This is the one in
+          the walkthrough, and the one you will use 90% of the time.
+        </p>
+      </div>
+
+      <nav class="bar" aria-label="Basic">
+        <ul class="menu-bar">
+          <li><a href="#">Home</a></li>
+          <li class="has-menu hot">
+            <a href="#">Portfolio <span class="caret"></span></a>
+            <ul class="submenu">
+              <li><a href="#">Web Design</a></li>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Photography</a></li>
+            </ul>
+          </li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <pre class="code"><code>.has-menu   { position: relative; }   /* measure from me */
+.submenu    { position: absolute;
+              top: 100%;              /* my top = parent's bottom */
+              left: 0; }              /* my left = parent's left */</code></pre>
+    </section>
+
+    <!-- ================================================================= 2 -->
+    <section class="demo">
+      <div class="demo-head">
+        <h2><span class="num">2</span> Right-aligned, for the last item</h2>
+        <p>
+          A menu on the last item in the bar runs off the side of the window.
+          Pin the <em>right</em> edges instead of the left and it opens inward.
+          Nothing else changes.
+        </p>
+      </div>
+
+      <nav class="bar" aria-label="Right aligned">
+        <ul class="menu-bar push-right">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Work</a></li>
+          <li><a href="#">Journal</a></li>
+          <li class="has-menu align-right hot">
+            <a href="#">Account <span class="caret"></span></a>
+            <ul class="submenu">
+              <li><a href="#">Your profile</a></li>
+              <li><a href="#">Saved projects</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Sign out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <pre class="code"><code>.align-right .submenu { left: auto;    /* stop pinning the left */
+                        right: 0; }    /* pin the right instead */</code></pre>
+    </section>
+
+    <!-- ================================================================= 3 -->
+    <section class="demo">
+      <div class="demo-head">
+        <h2><span class="num">3</span> The mega menu</h2>
+        <p>
+          Same idea, different parent. The panel is measured against the
+          <strong>bar</strong> rather than the item, so it can stretch the full
+          width and hold columns. Move <code>position: relative</code> up one
+          level and pin both sides.
+        </p>
+      </div>
+
+      <nav class="bar mega-bar" aria-label="Mega">
+        <ul class="menu-bar">
+          <li><a href="#">Home</a></li>
+          <li class="has-mega hot">
+            <a href="#">Services <span class="caret"></span></a>
+            <div class="mega">
+              <div class="mega-col">
+                <h3>Design</h3>
+                <a href="#">Brand identity</a>
+                <a href="#">Art direction</a>
+                <a href="#">Packaging</a>
+              </div>
+              <div class="mega-col">
+                <h3>Build</h3>
+                <a href="#">Websites</a>
+                <a href="#">Web apps</a>
+                <a href="#">Maintenance</a>
+              </div>
+              <div class="mega-col">
+                <h3>Content</h3>
+                <a href="#">Photography</a>
+                <a href="#">Copywriting</a>
+                <a href="#">Motion</a>
+              </div>
+              <div class="mega-col promo">
+                <h3>Featured</h3>
+                <p>A twelve-week rebuild for a bakery in Greenport.</p>
+                <a class="promo-link" href="#">Read the case study</a>
+              </div>
+            </div>
+          </li>
+          <li><a href="#">Studio</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <pre class="code"><code>.mega-bar .menu-bar { position: relative; }  /* the BAR is the parent now */
+.mega { position: absolute;
+        top: 100%;
+        left: 0; right: 0;                  /* both sides pinned = full width */
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); }</code></pre>
+    </section>
+
+    <!-- ================================================================= 4 -->
+    <section class="demo">
+      <div class="demo-head">
+        <h2><span class="num">4</span> The third-level flyout</h2>
+        <p>
+          A menu inside a menu. There is no room below, so it goes out to the
+          side: <code>left: 100%</code> puts its left edge on its parent's right
+          edge, and <code>top: 0</code> lines the tops up. Every level needs its
+          own positioned parent.
+        </p>
+      </div>
+
+      <nav class="bar" aria-label="Flyout">
+        <ul class="menu-bar">
+          <li><a href="#">Home</a></li>
+          <li class="has-menu hot">
+            <a href="#">Portfolio <span class="caret"></span></a>
+            <ul class="submenu">
+              <li><a href="#">Web Design</a></li>
+              <li class="has-menu flyout">
+                <a href="#">Photography <span class="caret side"></span></a>
+                <ul class="submenu">
+                  <li><a href="#">Architecture</a></li>
+                  <li><a href="#">Food</a></li>
+                  <li><a href="#">Portraits</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Brand &amp; Identity</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <pre class="code"><code>.flyout .submenu { top: 0;          /* line the tops up */
+                   left: 100%; }    /* my left = parent's right */</code></pre>
+
+      <p class="warn">
+        Two levels is the practical limit. Three means somebody has to hold a
+        mouse steady across two moving targets, and on a phone there is no hover
+        at all — which is the real argument for a mega menu instead.
+      </p>
+    </section>
+
+    <footer class="page-foot">
+      <h2>What is shared by all four</h2>
+      <pre class="code"><code>/* open with opacity + visibility, never display: none, so it can fade */
+.submenu, .mega { opacity: 0; visibility: hidden; }
+
+/* :focus-within opens the menu for the keyboard, exactly like :hover */
+.has-menu:hover &gt; .submenu,
+.has-menu:focus-within &gt; .submenu { opacity: 1; visibility: visible; }</code></pre>
+      <p>
+        The transition on the resting state carries a small delay, so the menu
+        waits a beat before closing. Open one and drag the mouse off sideways to
+        feel it.
+      </p>
+    </footer>
+  </body>
+</html>
