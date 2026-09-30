@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Studio Nine — the nav bar, built properly</title>
+    <style>
+/* ==========================================================================
+   Studio Nine — a nav bar built the way a real one is built.
+
+   This is the same technique as the walkthrough in README.md (a nested list,
+   a positioned parent, an absolutely positioned submenu) with three upgrades
+   marked UPGRADE below. Everything else is type, colour and spacing.
+   ========================================================================== */
+
+/* --- design tokens -------------------------------------------------------
+   Custom properties. Declare a value once, use it everywhere, change it in
+   one place. Anything starting with -- is one, and var() reads it back. */
+:root {
+  --ink: #16181d;
+  --bar: #14161b;
+  --bar-2: #21252e;
+  --paper: #f6f7f9;
+  --muted: #6b7280;
+  --line: #e4e7ec;
+  --accent: #c1440e;
+  --radius: 10px;
+  --speed: 0.18s;
+  --font: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background-color: var(--paper);
+  line-height: 1.55;
+}
+
+/* --- the header ----------------------------------------------------------
+   sticky = behaves like a normal element until it hits the offset you give
+   it, then behaves like fixed. It still reserves its space, which is why the
+   page does not jump the way it does with position: fixed. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bar);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.bar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* --- logo ---------------------------------------------------------------- */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 0;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background-color: var(--accent);
+  font-size: 0.95rem;
+}
+
+/* --- the bar itself ------------------------------------------------------ */
+.menu-bar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* flex instead of inline-block: no whitespace gaps to explain away, and
+     gap does the spacing for us */
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.menu-bar > li {
+  /* the load-bearing line. It moves nothing; it only says "measure from me"
+     to the absolutely positioned submenu inside. */
+  position: relative;
+}
+
+.menu-bar a {
+  display: block;
+  padding: 1rem 0.9rem;
+  color: #d8dce4;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: color var(--speed) ease, background-color var(--speed) ease;
+}
+
+.menu-bar a:hover,
+.menu-bar a:focus-visible {
+  color: #fff;
+  background-color: var(--bar-2);
+}
+
+/* the current page, so the nav always answers "where am I?" */
+.menu-bar a.is-current {
+  color: #fff;
+  box-shadow: inset 0 -2px 0 var(--accent);
+  border-radius: 0;
+}
+
+/* the Contact button. A nav can hold one loud item; two is a mess. */
+.menu-bar a.cta {
+  margin-left: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  color: #fff;
+  background-color: var(--accent);
+}
+
+.menu-bar a.cta:hover {
+  background-color: #a53a0c;
+}
+
+/* the little triangle. A rotated square with two borders — no image file. */
+.caret {
+  display: inline-block;
+  width: 0.38em;
+  height: 0.38em;
+  margin-left: 0.4em;
+  vertical-align: 0.12em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--speed) ease;
+}
+
+.has-menu:hover .caret,
+.has-menu:focus-within .caret {
+  transform: rotate(-135deg);
+}
+
+/* --- the submenu ---------------------------------------------------------
+   UPGRADE 1 — opacity + visibility instead of display: none.
+
+   display cannot be transitioned: there is no halfway between displayed and
+   not displayed, so a display: none menu can only ever snap. opacity has a
+   thousand in-between states, so it can fade. We still need visibility,
+   because an element at opacity 0 is invisible but still clickable — try it
+   without and you will find yourself clicking a menu that is not there. */
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  min-width: 14rem;
+  background-color: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 28px rgba(16, 18, 23, 0.18);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+
+  /* UPGRADE 3 — the close delay.
+     A transition on the RESTING state runs when the menu goes away, so the
+     0.25s here is a grace period: move the mouse off the edge for a moment
+     on the way down to the menu and it stays open. This is the difference
+     between a menu that feels fussy and one that feels solid. */
+  transition: opacity var(--speed) ease 0.25s, transform var(--speed) ease 0.25s,
+    visibility 0s linear calc(var(--speed) + 0.25s);
+}
+
+/* UPGRADE 2 — :focus-within alongside :hover.
+
+   :focus-within matches an element when anything inside it has keyboard
+   focus, so tabbing to "Work" opens the menu exactly like hovering it. A
+   hover-only menu is unusable without a mouse. One selector, and the nav
+   works for everybody. */
+.has-menu:hover > .submenu,
+.has-menu:focus-within > .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  /* no delay on the way IN — opening should feel instant */
+  transition: opacity var(--speed) ease, transform var(--speed) ease,
+    visibility 0s;
+}
+
+.submenu a {
+  padding: 0.6rem 0.8rem;
+  color: #343a46;
+  font-size: 0.92rem;
+  border-radius: 6px;
+}
+
+.submenu a:hover,
+.submenu a:focus-visible {
+  color: var(--ink);
+  background-color: #f1f3f7;
+}
+
+/* --- page content, so there is something to sit over -------------------- */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.25rem 5rem;
+}
+
+.hero {
+  padding: 5rem 0 3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero h1 {
+  max-width: 18ch;
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  max-width: 55ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.panel {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+}
+
+.panel p {
+  max-width: 62ch;
+  margin: 0;
+  color: #414855;
+}
+
+.notes {
+  max-width: 62ch;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #414855;
+}
+
+.notes li {
+  margin-bottom: 0.4rem;
+}
+
+.tall {
+  padding-bottom: 12rem;
+}
+
+code {
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+  background-color: #eceff4;
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+kbd {
+  padding: 0.15em 0.45em;
+  border: 1px solid #cfd4dd;
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background-color: #fff;
+  font-family: inherit;
+  font-size: 0.85em;
+}
+    </style>
+  </head>
+  <body>
+    <!-- ============================================================
+         THE HEADER
+         A <header> holding a logo and a <nav>. The nav is a list of
+         links, because that is what a nav is. Two of the items carry
+         a submenu: a <ul> INSIDE the <li>, which is what makes
+         "li:hover > ul" possible.
+         ============================================================ -->
+    <header class="site-header">
+      <div class="bar">
+        <a class="logo" href="#">
+          <span class="logo-mark">9</span>
+          Studio&nbsp;Nine
+        </a>
+
+        <nav aria-label="Main">
+          <ul class="menu-bar">
+            <li><a href="#" class="is-current" aria-current="page">Home</a></li>
+
+            <li class="has-menu">
+              <!-- aria-haspopup tells a screen reader this link opens something -->
+              <a href="#" aria-haspopup="true">Work <span class="caret"></span></a>
+              <ul class="submenu">
+                <li><a href="#">Web Design</a></li>
+                <li><a href="#">Web Development</a></li>
+                <li><a href="#">Photography</a></li>
+                <li><a href="#">Brand &amp; Identity</a></li>
+              </ul>
+            </li>
+
+            <li class="has-menu">
+              <a href="#" aria-haspopup="true">Studio <span class="caret"></span></a>
+              <ul class="submenu">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">The team</a></li>
+                <li><a href="#">Careers</a></li>
+              </ul>
+            </li>
+
+            <li><a href="#">Journal</a></li>
+            <li><a class="cta" href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>We make websites for people who make things.</h1>
+        <p>
+          Hover <strong>Work</strong> or <strong>Studio</strong> in the bar above.
+          Then press <kbd>Tab</kbd> from the address bar and walk the nav with the
+          keyboard — the menus open for that too.
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>Scroll down</h2>
+        <p>
+          The header is <code>position: sticky</code>, so it stays at the top of the
+          window while the page moves underneath it. The menus need
+          <code>z-index</code> for the same reason: they have to sit above whatever
+          is passing beneath them.
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>What is worth stealing here</h2>
+        <ul class="notes">
+          <li><code>position: relative</code> on the <code>li</code>, <code>position: absolute</code> on the submenu.</li>
+          <li>Opening with <code>opacity</code> and <code>visibility</code> instead of <code>display</code>, so it can fade.</li>
+          <li><code>:focus-within</code> next to <code>:hover</code>, so a keyboard opens the menu too.</li>
+          <li>A short delay before the menu closes, so a slightly wobbly mouse does not lose it.</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Filler, so there is something to scroll</h2>
+        <p>
+          Layout is the arrangement of boxes, and every box on this page is one you
+          have already built: a flex row for the bar, a positioned parent with an
+          absolutely positioned child for each menu, and padding doing the rest.
+        </p>
+      </section>
+
+      <section class="panel tall">
+        <h2>Still filler</h2>
+        <p>Scroll back up and open a menu over this text.</p>
+      </section>
+    </main>
+  </body>
+</html>
