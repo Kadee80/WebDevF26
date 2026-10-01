@@ -1,0 +1,227 @@
+/* Global Styles First */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* NAVIGATION */
+nav {
+  z-index: 100000;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+}
+
+nav li {
+  display: inline-block;
+  position: relative;
+}
+
+nav a {
+  display: block;
+  padding: 1rem 1.5rem;
+  color: chartreuse;
+  text-decoration: none;
+  transition: background-color 0.25s ease;
+}
+
+nav a:hover {
+  background-color: green;
+}
+
+/* subnav styles */
+nav li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 14rem;
+  background-color: #ccc;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+nav li:hover ul {
+  display: block;
+  z-index: 10000000;
+}
+
+nav li li {
+  display: block;
+}
+
+nav li li a {
+  color: #333;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* JUMBOTRON */
+
+.hero {
+  width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.hero article {
+  position: absolute;
+  bottom: 20%;
+  right: 0;
+  width: 50%;
+  padding: 2%;
+  color: #fff;
+  background: linear-gradient(
+    to right,
+    rgba(30.87, 153, 1) 0%,
+    rgba(0, 100, 200, 0.5) 50%,
+    rgba(125, 185, 232, 0) 100%
+  );
+}
+
+button,
+a.info {
+  display: inline-block;
+  width: 10rem;
+  padding: 10px 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  color: white;
+  background-color: #333;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  /* The transition gets defined on the RESTING STATE */
+  transition: all 1s ease;
+  /*
+  transition:
+    color 1s ease,
+    background-color 1s ease;
+  }
+  */
+}
+
+button:hover,
+a.info:hover {
+  background-color: chartreuse;
+  color: #333;
+}
+
+/* GALLERY */
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.thumb {
+  /* flex-grow: 0, flex-shrink: 0, flex-basis (width) */
+  flex: 0 0 30%;
+  margin: 1.5rem auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.mask {
+  /* pin all 4 edges to the parents edges */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* center the content on both axis */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 1s ease;
+}
+
+.mask h2 {
+  margin: 0;
+}
+
+.mask p {
+  font-style: italic;
+}
+
+.thumb:hover .mask {
+  opacity: 1;
+}
+
+/* define the img resting state explicitly so that we have properties to change */
+.thumb img {
+  /* these look like they normally would, but we need to define the transforms starting state so we have something to animate from */
+  transform: scale(1) rotate(0);
+
+  transition: all 1s ease;
+}
+
+.thumb:hover img {
+  transform: scale(2) rotate(-20deg);
+}
+
+.thumb .mask h2,
+.thumb .mask p,
+.thumb .mask a {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 1s ease-in-out;
+}
+
+.thumb:hover .mask h2,
+.thumb:hover .mask p,
+.thumb:hover .mask a {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Media Queries (conditional statements that apply style overrides */
+/* Desktop First styles = default style sheet is for large screens, override big => small */
+
+/* Tablet */
+@media screen and (width <= 1024px) {
+  .hero article {
+    width: 80%;
+    bottom: 10%;
+  }
+
+  .thumb {
+    flex-basis: 45%;
+  }
+}
+
+/* Phone */
+@media screen and (width <768px) {
+  .hero article {
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 0.75rem;
+  }
+}
