@@ -90,11 +90,11 @@ cp -R WeekNN/SomeTopic/StarterFiles ~/your-hw-repo/WeekNN/
 | 01 | Getting set up — Git, GitHub, markdown |
 | 02 | HTML: structure, tags, lists, images, links, forms |
 | 03 | Information architecture, UX, links & directories, intro to CSS, the box model |
-| 04 | CSS layout: positioning, flexbox, transforms, media queries |
-| 05 | Midterm proposal presentations |
-| 06 | Flexbox continued, responsive design |
-| 07 | Portfolio and midterm presentations |
-| 08 | CSS variables, contact forms, Photoshop |
+| 04 | Box model, the NYC gallery, positioning & flexbox |
+| 05 | The dropdown nav & the portfolio page |
+| 06 | Midterm proposals, responsive design |
+| 07 | CSS-only modals, contact forms & CSS variables |
+| 08 | Photoshop, image optimization & midterm presentations |
 | 09 | Intro to JavaScript: math, arrays, CSS grid |
 | 10 | JavaScript objects, JSON, async data and the DOM |
 | 11 | User input, local storage, geolocation |

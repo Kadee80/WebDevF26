@@ -1,25 +1,35 @@
-# HOMEWORK: DUE TUESDAY, WEEK 06
+# HOMEWORK: PROPOSALS, DUE TUESDAY WEEK 06
 
-Your proposal has been presented and you have my notes. Now build.
+Proposals move to **Tuesday of Week 06**. You present then — everybody, not
+volunteers.
 
-- **Act on the feedback you got.** If we agreed to cut a page or simplify the
-  navigation, do that first, and update your wireframe or sitemap to match.
+That gives you the weekend to make the proposal good rather than finished in a
+hurry. Use it.
 
-- In your class repo, make a `Midterm` folder. Inside it:
-  - `index.html` — your home page, marked up in real, semantic HTML
-  - `css/style.css` — linked and doing something, even if it is rough
-  - `img/` — your images, sized sensibly before you put them in the page
-  - `README.md` — a short write-up of the concept, plus your wireframe or
-    sitemap (a photo of a hand-drawn one is fine)
+## What to have ready
 
-- **The home page should be structured, not styled to death.** Header, main
-  content, footer, real headings, real lists. Layout before decoration — you
-  will style it properly over the next two weeks.
+The list is the same one from [Week 04's homework](../Week04/HW.md). Five
+minutes each, so hit these and stop:
 
-- Commit and push. Small commits with real messages, not one giant
-  `git commit -m "stuff"` at midnight.
+- [ ] **The concept or theme of the site.** A real subject, not a grid of random
+      images that shows off skills. What is this site *about*, and who would
+      visit it?
+- [ ] **An existing website you drew inspiration from**, and what specifically
+      you are taking from it — the layout, the type, the way it moves.
+- [ ] **What you can already build.** Point at real things from the last three
+      weeks: the box model, flexbox, positioning, a dropdown nav, a hero with
+      text over it.
+- [ ] **What you still need to learn.** The most useful part of the whole
+      proposal — it tells me what to cover before the midterm is due.
+- [ ] **Wireframe and sitemap.** Hand-drawn is completely fine. Show me the
+      pages and how they connect, and the layout of at least the home page.
 
-**Bring questions on Tuesday.** Week 06 is media queries and responsive
-design — we go back to Tuesday's portfolio page and make it work on a phone,
-and the fastest way to learn it is to apply it to a page you actually care
-about.
+## Also worth doing
+
+- [ ] Keep building Tuesday's portfolio page. Week 06 comes back to that exact
+      file for media queries, so have it somewhere you can find it.
+- [ ] If your wireframe has something on it you have no idea how to build, say
+      so out loud on Tuesday. That is the point of the exercise.
+
+**Bring it on paper if that is what you have.** A clear hand-drawn sitemap beats
+a vague digital one.

@@ -1,15 +1,16 @@
 # Midterm Proposals
 
-**Thursday, everybody presents.** Tuesday we build a portfolio page — partly
-because it is a good lesson, and partly so you can see what a finished-looking
-page actually costs in hours before you tell the room what you are building.
+**Tuesday, everybody presents.** Bring your wireframes. Bring them on paper if
+that is what you have.
 
-Bring your wireframes Thursday. Bring them on paper if that is what you have.
+You have now built a portfolio page with a hero, a gallery and a dropdown nav —
+which means you have a realistic sense of what a finished-looking page costs in
+hours. Use that when you tell the room what you are building.
 
 ## What a proposal has to cover
 
-You were given this list in [Week 04's homework](../../Week04/HW.md). Presentations
-run about five minutes each, so hit these and stop:
+You were given this list in [Week 04's homework](../../../Week04/HW.md).
+Presentations run about five minutes each, so hit these and stop:
 
 - **The concept or theme of the site.** A real subject, not a grid of random
   images and links that show off skills. What is this site *about*, and who
@@ -28,14 +29,14 @@ run about five minutes each, so hit these and stop:
 
 ## What happens in the room
 
-Presentation order is shuffled at the start of class, so nobody has to sit
-and dread being last.
+Presentation order is shuffled at the start of class, so nobody has to sit and
+dread being last.
 
 Each of you presents, and then the room responds. This is not a critique of
 whether your idea is good — it is a check on whether it is *buildable in the
 time you have with the skills you are getting*. Expect me to push back on scope.
 Almost every proposal is too big the first time, and that is a normal, fixable
-problem when we catch it in week 5 rather than week 8.
+problem when we catch it now rather than the week before it is due.
 
 You are expected to give feedback on other people's projects too. Participation
 is 25% of your grade and this is one of the weeks it is most visible.
@@ -52,14 +53,16 @@ version that works without it and treat the interactive layer as a stretch goal.
 
 ## If you are behind
 
-Say so on Thursday, out loud or to me afterwards. Between now and the midterm
-we cover media queries and not much else new, which means the next two weeks are
-the last easy chance to catch up on the box model, flexbox or positioning. Ask.
+Say so today, out loud or to me afterwards. **Thursday is media queries, and
+that is the last new layout technique before the midterm** — after this week the
+only thing standing between you and a finished site is build time. This is the
+last easy moment to catch up on the box model, flexbox or positioning. Ask.
 
 ## Once you have the OK
 
 Start turning those wireframes into HTML and CSS. Do not wait for a "final"
-design — build the skeleton, get it in the browser, and iterate there.
+design — build the skeleton, get it in the browser, and iterate there. The
+homework in [HW.md](../../HW.md) is exactly that, and presentations are Week 08.
 
 ## Useful for inspiration
 
