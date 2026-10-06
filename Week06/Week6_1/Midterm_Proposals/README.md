@@ -13,7 +13,7 @@ You were given this list in [Week 04's homework](../../../Week04/HW.md).
 Presentations run about five minutes each, so hit these and stop:
 
 - **The concept or theme of the site.** A real subject, not a grid of random
-  images and links that show off skills. What is this site *about*, and who
+  images and links that show off skills. What is this site _about_, and who
   would visit it?
 - **An existing website you drew inspiration from.** Say specifically what you
   are taking from it — the layout, the type, the way it moves. Bonus points for
@@ -33,8 +33,8 @@ Presentation order is shuffled at the start of class, so nobody has to sit and
 dread being last.
 
 Each of you presents, and then the room responds. This is not a critique of
-whether your idea is good — it is a check on whether it is *buildable in the
-time you have with the skills you are getting*. Expect me to push back on scope.
+whether your idea is good — it is a check on whether it is _buildable in the
+time you have with the skills you are getting_. Expect me to push back on scope.
 Almost every proposal is too big the first time, and that is a normal, fixable
 problem when we catch it now rather than the week before it is due.
 
@@ -43,7 +43,7 @@ is 25% of your grade and this is one of the weeks it is most visible.
 
 ## Scope, honestly
 
-A good midterm is **three to five pages**, hand-built, that look deliberate on
+A good midterm is **two to three **, hand-built, that look deliberate on
 both a laptop and a phone. It is not a fifteen-page site where every page is
 half finished.
 
@@ -64,9 +64,23 @@ Start turning those wireframes into HTML and CSS. Do not wait for a "final"
 design — build the skeleton, get it in the browser, and iterate there. The
 homework in [HW.md](../../HW.md) is exactly that, and presentations are Week 08.
 
-## Useful for inspiration
+## Presentation Order
 
-- [CSS color keywords](http://www.w3schools.com/cssref/css_colors.asp)
-- [HTML color picker](http://www.w3schools.com/colors/colors_picker.asp)
-- [Paletton — color palette tool](http://paletton.com)
-- [Google Fonts](https://fonts.google.com)
+- Nicole
+- Sia
+- Angela
+- Rebeca
+- Erin
+- Uma
+- Bella
+- Samantha
+- Aparna
+- Yiyan
+- Serena
+- Vy
+- Lara
+- Allina
+- Azelin
+- Rina
+- Jinhan
+- Fiona
