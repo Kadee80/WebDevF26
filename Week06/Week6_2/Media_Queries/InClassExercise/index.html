@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Responsive 101</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+
+    <script>
+      /*
+      // THIS VERSION USES THE ONCLICK ATTRIBUTE TO FIRE THE HIDE SHOW FUNCTION
+      // declare a function with the name toggleShow
+
+      function toggleShow() {
+        // grab out menu class ul and store it as a variable in js
+        var menu = document.getElementById('menu')
+        // log this menu in our console
+        console.log(menu)
+        // long way first, but it i more flexible when you add more to it
+        //does the menu have the class name 'show' in its classList?
+        //console.log(menu.classList)
+        // if our classList has the class, remove it
+        if (menu.classList.contains('show')) {
+          menu.classList.remove('show')
+        } else {
+          //otherwise add the 'show' to the classList
+          menu.classList.add('show')
+        }
+      }
+
+      // to call the function in JS
+      // toggleShow()
+      */
+
+      // this should begin 90% of the JS code for HTML that you write in this class
+      // addEventListener(EventToListenFor, function To Fire When that event happens)
+      // document.addEventListener('DOMContentLoaded', function () {
+      //   // document
+      //   //   .getElementById('mobile-menu')
+      //   //   .addEventListener('click', toggleShow)
+
+      //   var hamburger = document.getElementById('mobile-menu')
+      //   hamburger.addEventListener('click', toggleShow)
+      // })
+
+      function toggleShow() {
+        var menu = document.getElementById('menu')
+        menu.classList.toggle('show')
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1 class="brand"><a href="#">Logo</a></h1>
+      <!-- Hide this till we hit smaller screens! -->
+      <!-- If you dont use an event listener, you can apply one in the tag itself -->
+      <!-- <span class="mobile-menu" onclick="toggleShow()">&#8801;</span> -->
+      <span class="mobile-menu" id="mobile-menu" onclick="toggleShow()"
+        >&#8801;</span
+      >
+      <nav>
+        <ul class="menu" id="menu">
+          <li><a href="#">Link 1</a></li>
+          <li><a href="#">Link 2</a></li>
+          <li><a href="#">Link 3</a></li>
+          <li><a href="#">Link 4</a></li>
+          <li><a href="#">Link 5</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div id="box_model"></div>
+    <div id="content_box"></div>
+
+    <main class="container">
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+      <div class="thumb">
+        <img
+          src="./img/pepesilvia.jpg"
+          alt="Frazzled office worker inside messy cubicle."
+        />
+      </div>
+    </main>
+  </body>
+</html>
