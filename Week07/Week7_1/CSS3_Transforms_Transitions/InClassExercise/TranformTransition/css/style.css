@@ -1,0 +1,191 @@
+/* load the font first so we can use it in our style sheet */
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+/* how we apply the custom font */
+/* font-family: "Kaushan Script", cursive; */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* add our custom font as the default font for the page */
+html {
+  font-family: 'Kaushan Script', cursive;
+  /* declare and use a full size image BG */
+  background: url('../img/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* NAVIGATION STYLES */
+/* We are using decendant selectors instead of class names here */
+
+header {
+  width: 80%;
+  padding: 0 10%;
+  height: 50px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: gray;
+  z-index: 100;
+  /* flexbox container properties */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  color: #333;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  text-align: center;
+  background-color: rgba(40, 40, 40, 0.4);
+}
+
+nav li {
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  width: 140px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  /* always define the transition property on the starting/default style of the element*/
+  transition: all 1s;
+}
+
+nav a:hover {
+  background-color: rgba(40, 40, 40, 0.7);
+  color: red;
+}
+
+nav a.active {
+  background-color: black;
+  color: yellow;
+}
+
+/* GRID STYLES */
+.container {
+  width: 900px;
+  margin: 0 auto;
+  padding-top: 100px;
+  /* this is a container for element we want to stack using inline block
+  SO we need to zero out the font size! */
+  font-size: 0;
+}
+
+.polaroid {
+  width: 260px;
+  margin: 20px;
+  /* 260 + 20 + 20 = 300 which stacks beautifully in our container of 900px */
+  display: inline-block;
+  position: relative;
+}
+
+/* descendant selector looking for a specific pattern of elements */
+/* this targets only the images inside of a polaroid div */
+.polaroid img {
+  /* this is a common style for the image tag everywhere
+  make the image 100% width of its parent, then size the parent */
+  width: 100%;
+  height: auto;
+  /* add a uniform border all around */
+  border: 10px solid #ccc;
+  border-bottom-width: 45px;
+}
+
+.polaroid p {
+  /* 1rem = 16px, so 0.5rem is 8px, 2rem is 32px */
+  font-size: 1rem;
+  position: absolute;
+  bottom: 10px;
+  width: 280px;
+  text-align: center;
+}
+
+/* TRANSFORMS AND TRANSITIONS */
+
+/* one number = uniform scale */
+.scale_up {
+  transform: scale(1.2);
+  /* hint we need to change the z index for he overlap */
+  z-index: 10;
+}
+
+/* 2 number = x,y */
+.scale_x {
+  transform: scale(2, 1);
+}
+
+.scale_y {
+  transform: scaleY(2);
+}
+
+.skew_x {
+  transform: skewX(-20deg);
+}
+
+.skew_y {
+  transform: skewY(-20deg);
+}
+
+.skew_both {
+  transform: skew(10deg, 30deg);
+}
+
+.rot_x {
+  transform: rotateX(120deg);
+}
+
+.rot_y {
+  transform: rotateY(120deg);
+}
+
+.rot_z {
+  transform: rotateZ(120deg);
+}
+
+.rotate_left {
+  transform: rotate(-20deg);
+  transition: all 5s ease;
+}
+
+.rotate_right {
+  transform: rotate(20deg);
+  transition: all 5s ease;
+}
+
+.rotate_left:hover {
+  transform: rotate(20deg);
+}
+
+.rotate_right:hover {
+  transform: rotate(-20deg);
+}
+
+.skew_hover {
+  transform: skewX(30deg);
+  transition: all 5s ease;
+}
+
+.skew_hover:hover {
+  transform: skewX(-30deg);
+}
+
+.color_swap {
+  filter: grayscale(100%) blur(5px);
+  transition: all 5s ease;
+}
+
+.color_swap:hover {
+  filter: grayscale(0%) blur(0);
+}
