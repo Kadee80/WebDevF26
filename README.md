@@ -93,8 +93,8 @@ cp -R WeekNN/SomeTopic/StarterFiles ~/your-hw-repo/WeekNN/
 | 04 | Box model, the NYC gallery, positioning & flexbox |
 | 05 | The dropdown nav & the portfolio page |
 | 06 | Midterm proposals, responsive design |
-| 07 | CSS-only modals, contact forms & CSS variables |
-| 08 | Photoshop, image optimization & midterm presentations |
+| 07 | CSS-only modals, transforms & transitions |
+| 08 | Contact forms, CSS variables, GitHub Pages & midterm presentations |
 | 09 | Intro to JavaScript: math, arrays, CSS grid |
 | 10 | JavaScript objects, JSON, async data and the DOM |
 | 11 | User input, local storage, geolocation |

@@ -3,14 +3,28 @@
 The last week of new CSS before you present. Everything here can go straight
 into the midterm you are building.
 
+> **Thursday's class was cancelled** (I was out sick). The contact form, CSS
+> variables and GitHub Pages lesson has **moved to Tuesday of Week 08** — the
+> notes are still in this folder, linked below. Nothing has been dropped.
+
 ## Class notes
 
 - **Tuesday:** [Modals and Hover Effects with CSS Only](Week7_1/Modals_CSS_NoJS/README.md) — a working modal with no JavaScript at all
 - **Tuesday:** [Transforms & Transitions](Week7_1/CSS3_Transforms_Transitions/README.md) — scale, skew, rotate, and making it happen over time
-- **Thursday:** [Contact Form, CSS Variables & GitHub Pages](Week7_2/CSS_Vars_Contact_Form/README.md) — a form that really sends, and your site on the internet
+- **Moved to Tuesday of Week 08:** [Contact Form, CSS Variables & GitHub Pages](Week7_2/CSS_Vars_Contact_Form/README.md) — a form that really sends, and your site on the internet
 
-**Thursday is the important one.** By the end of it your work is at a real URL
-you can send to someone, and your midterm needs to be.
+**That last one is the important one.** By the end of it your work is at a real
+URL you can send to someone, and your midterm needs to be.
+
+## What Week 08 looks like now
+
+| | |
+|---|---|
+| **Tuesday** | The contact form lesson above, plus **2–3 volunteer presenters** at the start of class for a bonus 5 points |
+| **Thursday** | **Everybody presents.** Laptops closed |
+
+Email me if you want one of the Tuesday slots — my address is in the
+[syllabus](../SYLLABUS.md). First come, first served.
 
 ## On your own time
 
