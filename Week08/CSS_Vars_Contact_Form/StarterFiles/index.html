@@ -10,34 +10,40 @@
 
     <title>CSS Vars | Contact Us</title>
     <link rel="stylesheet" type="text/css" href="./css/contact.css" />
-
   </head>
   <body id="blue">
-      <div class="container">
-        <h1>Get In Touch!</h1>
-        <!-- POST is for sending data no query string in the URL -->
-        <!-- action is the endpoint that receives the form. We wire up a real
-             one together in class -- until then, # is the placeholder. -->
-        <form action="#" method="POST">
-          <div class="row">
-            <label class="label-lg" for="name">Name:</label>
-            <input name="name" type="text" class="input-lg" required/>
+    <div class="container">
+      <h1>Get In Touch!</h1>
+      <!-- POST is for sending data no query string in the URL -->
+      <!-- action is the endpoint that receives the form. We wire up a real
+        one together in class -- until then, # is the placeholder. -->
+      <form action="#" method="POST">
+        <div class="row">
+          <label class="label-lg" for="name">Name:</label>
+          <input name="name" type="text" class="input-lg" required />
 
-            <label class="label-lg" for="email">Email:</label>
-            <input name="email" type="text" class="input-lg" required/>
-          </div>
+          <label class="label-lg" for="email">Email:</label>
+          <input name="email" type="text" class="input-lg" required />
+        </div>
 
-          <div class="message-area">
-            <label for="message" class="label-lg">Leave me a message!</label>
-            <textarea name="message" class="message" placeholder="Leave a comment or question here!" required></textarea>
-          </div>
-          <div class="button-bar">
-            <button class="btn-dark" type="submit">Send</button>
-
-          </div>
-          <input type="hidden" name="subject" value="New Submission From: {{name}}" />
-
-        </form>
-      </div>
+        <div class="message-area">
+          <label for="message" class="label-lg">Leave me a message!</label>
+          <textarea
+            name="message"
+            class="message"
+            placeholder="Leave a comment or question here!"
+            required
+          ></textarea>
+        </div>
+        <div class="button-bar">
+          <button class="btn-dark" type="submit">Send</button>
+        </div>
+        <input
+          type="hidden"
+          name="subject"
+          value="New Submission From: {{name}}"
+        />
+      </form>
+    </div>
   </body>
 </html>
