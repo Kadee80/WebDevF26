@@ -12,9 +12,9 @@ Share your screen and walk us through:
 
 - **A demo of the site** and the progress you have made.
 - **One snippet of code you figured out** — a tutorial you adapted, or some
-  responsive behaviour you worked out. Be ready to explain how it works. If you
+  responsive behavior you worked out. Be ready to explain how it works. If you
   cannot explain it, do not put it in the presentation.
-- **Your responsive behaviour.** I will ask you to resize your window, so have
+- **Your responsive behavior.** I will ask you to resize your window, so have
   at least one media query doing real work. If you only write one, make it
   mobile: `(max-width: 768px)`.
 - **Next steps** — what you would do with more time, or what you plan to carry
@@ -34,5 +34,13 @@ somebody solves in week 8 the exact thing somebody else is fighting with.
 
 ## What is being graded today
 
-Presenting is what marks your midterm **on time**. Your *code* is not graded
+Presenting is what marks your midterm **on time**. Your _code_ is not graded
 today — see [HW.md](../HW.md) for the full timeline.
+
+## Tuesday Presentation Order
+
+- Nicole
+- Samantha
+- Allina
+- Angela
+- Sia
