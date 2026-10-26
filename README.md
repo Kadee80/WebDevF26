@@ -95,8 +95,8 @@ cp -R WeekNN/SomeTopic/StarterFiles ~/your-hw-repo/WeekNN/
 | 06 | Midterm proposals, responsive design |
 | 07 | CSS-only modals, transforms & transitions |
 | 08 | Contact forms, CSS variables, GitHub Pages & midterm presentations |
-| 09 | Intro to JavaScript: math, arrays, CSS grid |
-| 10 | JavaScript objects, JSON, async data and the DOM |
+| 09 | Intro to JavaScript: variables, math, arrays & random content |
+| 10 | The DOM: event listeners, show/hide & toggling classes |
 | 11 | User input, local storage, geolocation |
 | 12 | Bootstrap grid, Leaflet & OpenStreetMap |
 | 13 | Bootstrap galleries, GSAP animation |

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Page</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- Where Tuesday ended, plus one new empty element: the lineup list.
+         If you kept your own file from Tuesday, use that one instead and just
+         copy the <section class="lineup-wrap"> block below into it. -->
+
+    <article class="ticket">
+      <header class="poster">
+        <p class="presents">The Fillmore East presents</p>
+        <h1 class="billing" id="billing"></h1>
+        <p class="where-when" id="where-when"></p>
+      </header>
+
+      <p class="status" id="status"></p>
+
+      <section class="order">
+        <h2>Your order</h2>
+
+        <p class="line" id="price-line"></p>
+        <p class="line" id="fee-line"></p>
+        <p class="line discount" id="discount-line"></p>
+
+        <p class="total">
+          <span>Total</span>
+          <strong id="total"></strong>
+        </p>
+
+        <p class="fine-print" id="fine-print"></p>
+      </section>
+
+      <!-- NEW today -->
+      <section class="lineup-wrap">
+        <h2>Running order</h2>
+        <ul class="lineup" id="lineup"></ul>
+        <p class="tagline" id="tagline"></p>
+      </section>
+    </article>
+
+    <script>
+      /* ---------- Tuesday's code, so nobody is stuck ----------
+         Everything below is where we finished last class. Today we replace
+         the hard-coded facts at the top with randomly chosen ones. */
+
+      const headliner = 'Bad Moon Rising'
+      const support = 'The Paper Cuts'
+      const venue = 'The Fillmore East'
+      const doors = 'Fri 13 Nov, doors 8pm'
+
+      const ticketPrice = 18.5
+      const capacity = 250
+      const ticketsSold = 243
+      const serviceFeeRate = 0.12
+      const studentPrice = 5
+
+      const isStudent = true
+      let quantity = 3
+
+      const ticketsLeft = capacity - ticketsSold
+      const isSoldOut = ticketsLeft === 0
+      const isAlmostSoldOut = ticketsLeft < 10
+
+      const subtotal = ticketPrice * quantity
+      const serviceFee = subtotal * serviceFeeRate
+      const discount = isStudent ? studentPrice : 0
+      const total = subtotal + serviceFee - discount
+
+      const billing = `${headliner.toUpperCase()} + ${support}`
+      const whereWhen = `${venue} · ${doors}`
+
+      let status
+
+      if (isSoldOut) {
+        status = 'Sold out — join the waiting list'
+      } else if (isAlmostSoldOut) {
+        status = `Hurry — only ${ticketsLeft} tickets left`
+      } else {
+        status = 'Tickets available'
+      }
+
+      document.querySelector('#billing').textContent = billing
+      document.querySelector('#where-when').textContent = whereWhen
+      document.querySelector('#status').textContent = status
+      document.querySelector('#price-line').textContent = `${quantity} × $${ticketPrice.toFixed(2)}  —  $${subtotal.toFixed(2)}`
+      document.querySelector('#fee-line').textContent = `Service fee  —  $${serviceFee.toFixed(2)}`
+      document.querySelector('#discount-line').textContent = isStudent
+        ? `Student discount  —  −$${discount.toFixed(2)}`
+        : ''
+      document.querySelector('#total').textContent = `$${total.toFixed(2)}`
+      document.querySelector('#fine-print').textContent = `All sales final. ${ticketsLeft} of ${capacity} tickets remaining.`
+
+      /* ---------- Today's code goes below this line ---------- */
+    </script>
+  </body>
+</html>
