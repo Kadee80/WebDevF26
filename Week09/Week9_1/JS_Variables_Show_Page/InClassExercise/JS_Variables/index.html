@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Page</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- The markup and the CSS are done. Every empty element below has an id,
+    and by the end of class JavaScript will have filled all of them in. -->
+
+    <article class="ticket">
+      <header class="poster">
+        <p class="presents">The Fillmore East presents</p>
+        <h1 class="billing" id="billing">THIS IS INNER HTML OR TEXT CONTENT</h1>
+        <p class="where-when" id="where-when"></p>
+      </header>
+
+      <p class="status" id="status">s</p>
+
+      <section class="order">
+        <h2>Your order</h2>
+
+        <p class="line" id="price-line"></p>
+        <p class="line" id="fee-line">feeLine</p>
+        <p class="line discount" id="discount-line">discountLine</p>
+
+        <p class="total">
+          <span>Total</span>
+          <strong id="total">total</strong>
+        </p>
+
+        <p class="fine-print" id="fine-print">finePrint</p>
+      </section>
+    </article>
+
+    <!-- The script goes at the END of the body, after the elements it talks
+    to. Put it in the <head> and it runs before they exist. -->
+    <script>
+      /* ===================================
+      1. THE FACTS ABOUT THE SHOW
+
+      3 types and you can see which is which by looking
+      quote "" = string
+      a bare number = number
+      the value is either true or false, or computes to true/false = boolean
+      ======================================*/
+      // declaring a variable without assign a value
+      // hey JS, make a slot in memory called myVarName, it doesn't hold anything YET
+      //var myVarName
+
+      // declare and assign an value
+      // var myOtherVar = "Katie"
+
+      const headliner = 'Bad Moon Rising' // string
+      const support = 'The Paper Cuts' // string
+      const venue = 'The Fillmore East' // string
+      const doors = 'Friday 13 Nov, doors 8pm' // string
+
+      const ticketPrice = 18.5 // this a number, a float (decimal point)
+      const capacity = 250 // number (an integer -- whole number)
+      const ticketsSold = 250 // number
+      const serviceRateFee = 0.12 // number which is actually 12% for our calculations
+      const studentPrice = 5 // number -- dollars off
+
+      const isStudent = true // boolean
+
+      // this is the one value that genuinely changes, so its a 'let'
+      const quantity = 3
+
+      /* ======================================
+      2. BOOLEANS WE WORK OUT RATHER THAN TYPE
+      A comparison IS a boolean, no need to decide ourselves
+      ====================================== */
+
+      const ticketsLeft = capacity - ticketsSold // 7
+      //console.log(typeof ticketsLeft)
+      const isSoldOut = ticketsLeft === 0 // false
+      const isAlmostSoldOut = ticketsLeft < 10 // true
+
+      /* =========================
+      3. THE MONEY
+      each line will build on the one above it
+      ============================ */
+      const subtotal = ticketPrice * quantity // 55.5
+      //console.log(subtotal)
+      const serviceFee = subtotal * serviceRateFee // 6.66
+      // discount is a boolean, its value is computed with a ternary which is sexy conditional statement
+
+      // === is deep equals, this checks the value and the data type
+      // == checks the value but doesn't care about the data type
+      // if (isStudent == true) - will be true for 1, 'true'
+
+      /*
+      if (isStudent === true) {
+        discount = studentPrice
+      } else {
+        discount = 0
+      }*/
+
+      // ternary condition ? what to assign/do if true : what to assign/do if false
+      const discount = isStudent ? studentPrice : 0
+      const total = subtotal + serviceFee - discount // 51.16
+
+      /* ==================================
+      4.  THE WORDS
+      backticks `` let us drop a variable value straight into a sentence with ${}
+      single ''  or double quotes "" one allow this
+      TEMPLATE LITERALS
+       ================================== */
+
+      const supportName = support || 'support TBA' // this catches an empty string or an empty/nonexistent variable
+      const billing = `${headliner.toUpperCase()} + ${supportName}`
+      const whereWhen = `${venue} • ${doors} `
+
+      // console.log(billing, whereWhen)
+
+      const priceLine = `${quantity} x $${ticketPrice.toFixed(2)}`
+      console.log(priceLine)
+
+      const feeLine = `Service Fee - $${serviceFee.toFixed(2)}`
+      const discountLine = isStudent
+        ? `Student Discount - $${discount.toFixed(2)}`
+        : ''
+
+      const totalLine = `$${total.toFixed(2)}`
+
+      /* ==============================
+      5. CHOOSING A MESSAGE
+      if/else if/ else -- the first true branch wins and the rest are skipped
+      ================================*/
+      let status // this is a let because we don't immediately assign a value, because we haven't computed it yet
+
+      if (isSoldOut) {
+        status = 'Sold out - join the waiting list'
+      } else if (isAlmostSoldOut) {
+        status = `Hurry! Only ${ticketsLeft} tickets left. `
+      } else {
+        status = 'Tickets available'
+      }
+
+      const idLine = isStudent ? 'Bring your student ID to the door' : ''
+      const finePrint = `All sales final. ${idLine} ${ticketsLeft} of ${capacity} tickets remaining.`
+
+      /* ==============================
+      6. ON THE PAGE
+      One line borrowed from next week: find and element by is selector (ID)
+      and replace the text inside it
+        ================================*/
+
+      document.querySelector('#billing').textContent = billing
+      // console.log(document.querySelector('#where-when'))
+      document.querySelector('#where-when').textContent = whereWhen
+      // status
+      document.querySelector('#status').textContent = status
+      // priceLine
+      document.querySelector('#price-line').textContent = priceLine
+      // feeLine
+      document.querySelector('#fee-line').textContent = feeLine
+      // discountLine
+      document.querySelector('#discount-line').textContent = discountLine
+      // total
+      document.querySelector('#total').textContent = total
+      // finePrint
+      document.querySelector('#fine-print').textContent = finePrint
+    </script>
+  </body>
+</html>
