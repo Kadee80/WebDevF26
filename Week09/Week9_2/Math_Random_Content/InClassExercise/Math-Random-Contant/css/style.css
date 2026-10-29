@@ -1,0 +1,215 @@
+/* ---------------------------------------------------------------
+   The Fillmore East — show page
+   Nothing in here needs changing today. The whole lesson happens
+   in the <script> at the bottom of index.html.
+   --------------------------------------------------------------- */
+
+:root {
+  --accent: #e0504f;
+  --ink: #16151a;
+  --paper: #f7f4ed;
+  --muted: #6c6a75;
+  --line: #d8d3c7;
+  --ff-display: 'Oswald', 'Haettenschweiler', 'Arial Narrow', sans-serif;
+  --ff-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  background: var(--ink);
+  color: var(--ink);
+  font-family: var(--ff-body);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.ticket {
+  background: var(--paper);
+  width: 100%;
+  max-width: 420px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.5);
+}
+
+/* ---------------------------------------------------------- poster */
+
+.poster {
+  background: var(--accent);
+  color: var(--paper);
+  padding: 2rem 1.5rem 1.75rem;
+  text-align: center;
+}
+
+.poster .presents {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.poster .billing {
+  font-family: var(--ff-display);
+  font-size: 2rem;
+  line-height: 1.05;
+  margin: 0.75rem 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.poster .where-when {
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* ---------------------------------------------------------- status */
+
+.status {
+  margin: 0;
+  padding: 0.6rem 1.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ----------------------------------------------------------- order */
+
+.order {
+  padding: 1.5rem;
+}
+
+.order h2 {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* an empty line should not leave a gap -- :empty matches an element
+   with nothing in it at all, which is exactly what happens when we
+   set its text to an empty string */
+.line:empty {
+  display: none;
+}
+
+.discount {
+  color: #1f7a4d;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 2px solid var(--line);
+}
+
+.total span {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.total strong {
+  font-family: var(--ff-display);
+  font-size: 1.9rem;
+  font-weight: 500;
+}
+
+.fine-print {
+  margin: 1.25rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------ 600 */
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem 0.75rem;
+  }
+
+  .poster .billing {
+    font-size: 1.6rem;
+  }
+}
+
+/* ---------------------------------------------------------- lineup
+   Added for Thursday: the running order, built by a for loop.
+   ------------------------------------------------------------------ */
+
+.lineup-wrap {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.lineup-wrap h2 {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+.lineup {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.lineup li {
+  padding: 0.55rem 0.6rem;
+  font-size: 0.92rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* every other row, courtesy of the modulo operator */
+.lineup li.stripe {
+  background: rgb(0 0 0 / 0.045);
+}
+
+.lineup li .time {
+  display: inline-block;
+  width: 4.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.headline-act {
+  font-weight: 700;
+}
+
+.tagline {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+  text-align: center;
+}
