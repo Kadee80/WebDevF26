@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Page</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- Week 09's finished page, plus three controls that do nothing yet:
+         a quantity stepper, a promo code box, and a Roll again button.
+         Today we make all three work. -->
+
+    <article class="ticket">
+      <header class="poster">
+        <p class="presents">The Fillmore East presents</p>
+        <h1 class="billing" id="billing"></h1>
+        <p class="where-when" id="where-when"></p>
+      </header>
+
+      <p class="status" id="status"></p>
+
+      <section class="order">
+        <h2>Your order</h2>
+
+        <p class="line" id="price-line"></p>
+        <p class="line" id="fee-line"></p>
+        <p class="line discount" id="discount-line"></p>
+        <p class="line discount" id="promo-line"></p>
+
+        <p class="total">
+          <span>Total</span>
+          <strong id="total"></strong>
+        </p>
+
+        <p class="fine-print" id="fine-print"></p>
+      </section>
+
+      <!-- NEW: none of this is wired up yet -->
+      <section class="controls">
+        <div class="qty">
+          <span class="qty-label">Tickets</span>
+          <button id="minus" type="button" aria-label="One fewer ticket">
+            −
+          </button>
+          <span class="count" id="count"></span>
+          <button id="plus" type="button" aria-label="One more ticket">
+            +
+          </button>
+        </div>
+
+        <div class="promo">
+          <label for="promo">Promo code</label>
+          <input id="promo" type="text" placeholder="Try FRIEND" />
+          <p class="promo-msg" id="promo-msg"></p>
+        </div>
+
+        <button class="roll" id="roll" type="button">
+          Roll a different show
+        </button>
+      </section>
+
+      <section class="lineup-wrap">
+        <h2>Running order</h2>
+        <ul class="lineup" id="lineup"></ul>
+        <p class="tagline" id="tagline"></p>
+      </section>
+    </article>
+
+    <script>
+      /* ---------- Where Week 09 ended ----------
+         The facts are random, the rules work them out, and all of it
+         happens exactly once: when the page loads. Today that changes. */
+
+      const headliners = [
+        'Bad Moon Rising',
+        'Velvet Static',
+        'Dial Tone',
+        'Mountain Time',
+        'Kerosene Club',
+        'The Paper Cuts',
+      ]
+      const supports = [
+        'Low Ceiling',
+        'The Ferry Lights',
+        'Tiny Mirrors',
+        'Garden State Radio',
+      ]
+      const djs = ['DJ Shortwave', 'DJ Halfmoon', 'DJ Ferry']
+      const venues = [
+        'The Fillmore East',
+        'Rough Trade',
+        'Brooklyn Steel',
+        'Market Hotel',
+      ]
+      const nights = ['Thu 12 Nov', 'Fri 13 Nov', 'Sat 14 Nov']
+      const accents = ['#e0504f', '#2f6f4e', '#3b4c9c', '#b4622a', '#6b3f7a']
+      const taglines = [
+        'Strictly 18+. No re-entry.',
+        'Late set. Bring earplugs.',
+        'All ages until 10pm.',
+        'Sold out three times running.',
+      ]
+
+      function pickRandom(list) {
+        return list[Math.floor(Math.random() * list.length)]
+      }
+
+      function randomBetween(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
+
+      // declare below as global variables but with no assigned values yet
+      // this is a time to use LET
+      // Putting all of out "state" in one place, ne function that draws it, another to change it
+
+      let headliner
+      let support
+      let venue
+      let doors
+      let ticketPrice
+      let capacity
+      let ticketsSold
+      let lineup
+      let tagline
+      let accent
+
+      let quantity = 2
+      let promoCode = ''
+
+      // these genuinely never change so we can keep them as const
+      const serviceFeeRate = 0.12
+      const studentPrice = 5
+      const isStudent = true
+
+      const MIN_TICKETS = 1
+      const MAX_TICKETS = 6
+
+      // Roll a new show, only the facts/data no drawing/rendering here
+      // whenever we call this function, we assign new values to the global variables defined above
+      function rollNewShow() {
+        headliner = pickRandom(headliners)
+        support = pickRandom(supports)
+        venue = pickRandom(venues)
+        doors = `${pickRandom(nights)}, doors 8pm`
+
+        ticketPrice = randomBetween(12, 45) + 0.5
+        capacity = randomBetween(120, 400)
+        ticketsSold = randomBetween(capacity - 25, capacity)
+
+        lineup = [pickRandom(djs), support, headliner]
+        tagline = pickRandom(taglines)
+        accent = pickRandom(accents)
+      }
+
+      // Render -work everything out, then put it on the page
+      // week09's code, but now wrapped in a function so we can call it again and again
+      function render() {
+        const ticketsLeft = capacity - ticketsSold
+        const isSoldOut = ticketsLeft === 0
+        const isAlmostSoldOut = ticketsLeft < 10
+
+        const subtotal = ticketPrice * quantity
+        const serviceFee = subtotal * serviceFeeRate
+        const discount = isStudent ? studentPrice : 0
+
+        const promoIsValid = promoCode === 'FRIEND'
+        const promoDiscount = promoIsValid ? subtotal * 0.1 : 0
+
+        const total = subtotal + serviceFee - discount - promoDiscount
+
+        let status
+
+        if (isSoldOut) {
+          status = 'Sold out — join the waiting list'
+        } else if (isAlmostSoldOut) {
+          status = `Hurry — only ${ticketsLeft} tickets left`
+        } else {
+          status = 'Tickets available'
+        }
+
+        let promoMsg = ''
+        if (promoCode === '') {
+          promoMsg = ''
+        } else if (promoIsValid) {
+          promoMsg = '10% off - Nice.'
+        } else {
+          promoMsg = `${promoCode} is not a code we know.`
+        }
+
+        let lineupHTML = ''
+
+        for (let i = 0; i < lineup.length; i++) {
+          // % modulus = x/y = whole number + remainder = Modulus returns the remainder
+          const stripe = i % 2 === 0 ? 'stripe' : ''
+          lineupHTML += `<li class="${stripe}"> <span class="time">${8 + i}PM</span> ${lineup[i]}</li>`
+        }
+
+        // Same add values to page with querySelector as last week
+        document.querySelector('#billing').textContent =
+          `${headliner.toUpperCase()} + ${support}`
+        document.querySelector('#where-when').textContent =
+          `${venue} · ${doors}`
+        document.querySelector('#status').textContent = status
+        document.querySelector('#price-line').textContent =
+          `${quantity} × $${ticketPrice.toFixed(2)}  —  $${subtotal.toFixed(2)}`
+        document.querySelector('#fee-line').textContent =
+          `Service fee  —  $${serviceFee.toFixed(2)}`
+        document.querySelector('#discount-line').textContent = isStudent
+          ? `Student discount  —  −$${discount.toFixed(2)}`
+          : ''
+        document.querySelector('#total').textContent = `$${total.toFixed(2)}`
+        document.querySelector('#fine-print').textContent =
+          `${ticketsLeft} of ${capacity} tickets remaining`
+        document.querySelector('#count').textContent = quantity
+        document.querySelector('#lineup').innerHTML = lineupHTML
+        document.querySelector('#tagline').textContent = pickRandom(taglines)
+        document.body.style.setProperty('--accent', pickRandom(accents))
+
+        const promoMsgEl = document.querySelector('#promo-msg')
+        promoMsgEl.textContent = promoMsg
+        // .className = overwrites any/all existing classnames in that element
+        promoMsgEl.className = promoIsValid ? 'promo-msg ok' : 'promo-msg'
+
+        // this wont log until we actually call the function
+        console.log(promoMsgEl)
+
+        // grab the minus/plus buttons on the screen, disable them when we his max or min threshhold
+        document.querySelector('#minus').disabled = quantity === MIN_TICKETS
+        document.querySelector('#plus').disabled = quantity === MAX_TICKETS
+      }
+
+      // Handlers - Change the state, then render.
+      function handlePlus() {
+        if (quantity < MAX_TICKETS) {
+          quantity = quantity + 1
+          render()
+        }
+      }
+
+      function handleMinus() {
+        if (quantity > MIN_TICKETS) {
+          quantity = quantity - 1
+          render()
+        }
+      }
+
+      function handlePromo(event) {
+        // whenever an event fires through an event listener on our page, we have access to that event for free in our callback function
+        //event.target is the element that the event happened on, input.value is what was currently typed into the input
+        // console.log(event.target)
+        promoCode = event.target.value.trim().toUpperCase()
+        render()
+      }
+
+      function handleRoll() {
+        rollNewShow()
+        render()
+      }
+
+      // once we have defined everything, make sure we call our 2 functions to set data and render it on the page
+      // rollNewShow()
+      // render()
+
+      // in order to make sure we can grab elements on the page whenever, regardless of where our script tag loads, we need a special event listener
+      document.addEventListener('DOMContentLoaded', function () {
+        // this is where we call functions that have to fire on load (but this way its protected)
+        // this is also where we assign event listeners
+        console.log('DOM LOADED YAY')
+
+        // Add event listeners to the page (the proper way!)
+        // grab my plus button, add a click event listener, when click happens, call our handlePlus function
+        document.querySelector('#plus').addEventListener('click', handlePlus)
+
+        document.querySelector('#minus').addEventListener('click', handleMinus)
+
+        const promoElement = document.querySelector('#promo')
+        // event type 'input' fires every time the input value changes inside of this event target
+        promoElement.addEventListener('input', handlePromo)
+
+        document.querySelector('#roll').addEventListener('click', handleRoll)
+
+        handleRoll()
+      })
+    </script>
+  </body>
+</html>
