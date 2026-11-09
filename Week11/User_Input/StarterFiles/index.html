@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple User Input</title>
+    <style>
+      h1 {
+        text-transform: uppercase;
+      }
+
+      .red {
+        color: red;
+      }
+
+      .green {
+        color: green;
+      }
+
+      .blue {
+        color: blue;
+      }
+
+      .purple {
+        color: blueviolet;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="changeMe">Get User Input</h1>
+
+    <form>
+      <fieldset>
+        <legend>Pick a number between 0 and 3</legend>
+        <label for="num">0-3</label>
+        <input
+          type="number"
+          name="num"
+          id="num"
+          min="0"
+          max="3"
+          step="1"
+          placeholder="1"
+        />
+        <button type="button" id="changeBtn" class="btnClass">
+          Click to change the color of the H1
+        </button>
+      </fieldset>
+    </form>
+    <script>
+      // We write this together in class.
+    </script>
+  </body>
+</html>

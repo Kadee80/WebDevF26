@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tip Calculator</title>
+    <style type="text/css">
+      .container {
+        width: 300px;
+        margin: 0 auto;
+        /* trick from before flexbox align items center */
+        line-height: 40px;
+        margin-top: 5%;
+        border: 1px solid gray;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      .well {
+        border-radius: 10px;
+        background-color: #ddd;
+        min-height: 100px;
+        padding: 20px;
+      }
+
+      .container button {
+        width: 100%;
+        padding: 10px 0;
+        border: 2px solid gray;
+        cursor: pointer;
+        margin: 10px 0;
+        color: white;
+        background-color: #333;
+        transition: background-color 1s ease;
+      }
+
+      .container button:hover {
+        background-color: #777;
+      }
+
+      input[type='number'] {
+        width: 100%;
+        padding: 10px 0;
+        border: 1px solid gray;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tip Calculator</h1>
+      <form>
+        <label for="bill">What is the total bill?</label>
+        <input
+          type="number"
+          name="bill"
+          id="bill"
+          min="0"
+          step="0.01"
+          required
+        />
+        <br />
+        <!-- radio group: they all share the same name, they all have different values
+         this is a common design pattern to wrap the label around each radio input because we cane use for attribute -->
+        <label><input type="radio" name="tip" value="0.05" />5%</label>
+        <label><input type="radio" name="tip" value="0.10" />10%</label>
+        <label><input type="radio" name="tip" value="0.15" />15%</label>
+        <label><input type="radio" name="tip" value="0.20" />20%</label>
+
+        <br />
+        <!-- button type=submit will try to submit the form -->
+        <button type="submit" id="calcBtn">Calculate Tip</button>
+      </form>
+      <div class="well" id="tipResult"></div>
+    </div>
+
+    <script type="text/javascript">
+      // We write this together in class.
+    </script>
+  </body>
+</html>
