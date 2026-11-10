@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple User Input</title>
+    <style>
+      h1 {
+        text-transform: uppercase;
+      }
+
+      .red {
+        color: red;
+      }
+
+      .green {
+        color: green;
+      }
+
+      .blue {
+        color: blue;
+      }
+
+      .purple {
+        color: blueviolet;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="changeMe">Get User Input</h1>
+
+    <form>
+      <fieldset>
+        <legend>Pick a number between 0 and 3</legend>
+        <label for="num">0-3</label>
+        <input
+          type="number"
+          name="num"
+          id="num"
+          min="0"
+          max="3"
+          step="1"
+          placeholder="1"
+        />
+        <button type="button" id="changeBtn" class="btnClass">
+          Click to change the color of the H1
+        </button>
+      </fieldset>
+    </form>
+    <script>
+      // waiting for the page to fully load before we try and grab any elements with JS
+      document.addEventListener('DOMContentLoaded', function () {
+        // assign html elements to variables
+        let myBtn = document.getElementById('changeBtn')
+        myBtn.addEventListener('click', pickAClass)
+      })
+
+      // a function that changes the color of the H1 based on the number a user picked
+      //function pickAClass () {}
+      const pickAClass = () => {
+        // grab our user input
+        // all inputs (except checkboxes and radio) receive the user entered value in a attribute called value
+        let userN = document.getElementById('num').value
+        // all input values come in as strings! make sure you cast them into a number before trying to do any math
+        console.log(userN, typeof userN)
+        let n = parseInt(userN)
+        // ow we have a number!
+        console.log(n, typeof n)
+        //store the h1 as a var
+        const h = document.getElementById('changeMe')
+
+        // rather than having a laundry list of conditional statements
+        // lets use a switch statement
+
+        switch (n) {
+          case 0:
+            h.className = 'red'
+            break
+          case 1:
+            h.className = 'green'
+            break
+          case 2:
+            h.className = 'blue'
+            break
+          case 3:
+            h.className = 'purple'
+            break
+          default:
+            // This is the backup plan in case n didn't match ANY of the above cases
+            break
+        }
+      }
+    </script>
+  </body>
+</html>

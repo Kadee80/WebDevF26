@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tip Calculator</title>
+    <style type="text/css">
+      .container {
+        width: 300px;
+        margin: 0 auto;
+        /* trick from before flexbox align items center */
+        line-height: 40px;
+        margin-top: 5%;
+        border: 1px solid gray;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      .well {
+        border-radius: 10px;
+        background-color: #ddd;
+        min-height: 100px;
+        padding: 20px;
+      }
+
+      .container button {
+        width: 100%;
+        padding: 10px 0;
+        border: 2px solid gray;
+        cursor: pointer;
+        margin: 10px 0;
+        color: white;
+        background-color: #333;
+        transition: background-color 1s ease;
+      }
+
+      .container button:hover {
+        background-color: #777;
+      }
+
+      input[type='number'] {
+        width: 100%;
+        padding: 10px 0;
+        border: 1px solid gray;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tip Calculator</h1>
+      <form>
+        <label for="bill">What is the total bill?</label>
+        <input
+          type="number"
+          name="bill"
+          id="bill"
+          min="0"
+          step="0.01"
+          required
+        />
+        <br />
+        <!-- radio group: they all share the same name, they all have different values
+         this is a common design pattern to wrap the label around each radio input because we cane use for attribute -->
+        <label><input type="radio" name="tip" value="0.05" />5%</label>
+        <label><input type="radio" name="tip" value="0.10" />10%</label>
+        <label><input type="radio" name="tip" value="0.15" />15%</label>
+        <label><input type="radio" name="tip" value="0.20" />20%</label>
+
+        <br />
+        <!-- button type=submit will try to submit the form -->
+        <button type="submit" id="calcBtn">Calculate Tip</button>
+      </form>
+      <div class="well" id="tipResult"></div>
+    </div>
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('calcBtn').addEventListener('click', calcTip)
+      })
+
+      // whenever you have a callback function from an event, you can receive that event as a parameter
+      const calcTip = (event) => {
+        // stop the page from reloading when then form is submitted
+        event.preventDefault()
+        // console.log(event.target)
+
+        // the html element we will add our dynamic generated DOM elements to at the end
+        let result = document.getElementById('tipResult')
+
+        // grab the value of the user's bill input
+        let bill = document.getElementById('bill').value
+        // remember input values ALWAYS come in as strings
+        bill = parseFloat(bill)
+
+        let per // from our radio group
+        let tip // bill * per
+        let total // bill + tip
+
+        // find the selected tip percentage from our list of radio buttons
+        let arrTips = document.getElementsByName('tip')
+        console.log(arrTips) // looks like an array, but its actually a node list
+        // loop through our lst of radio buttons and find the one where
+        for (let i = 0; i < arrTips.length; i++) {
+          if (arrTips[i].checked) {
+            // if the input is checked, grab its value and assign it as out tip per
+            per = arrTips[i].value
+            // once we find the checked one, we can exit out for loop early, since radio
+            // buttons only allow one checked per shared name
+            break
+          }
+        }
+
+        // calculate our tip
+        tip = bill * per
+        // because this results in YUCK long decimals, we need a util function
+        // round to the nearest hundreth
+        // console.log(moneyRound(tip))
+        tip = moneyRound(tip)
+
+        total = bill + tip
+        total = moneyRound(total)
+
+        let p1 = document.createElement('P')
+        let p2 = document.createElement('P')
+        let p3 = document.createElement('P')
+        let p4 = document.createElement('P')
+
+        let t1 = document.createTextNode(`Bill is $${bill}`)
+        let t2 = document.createTextNode(`Tip percentage is ${per}`)
+        let t3 = document.createTextNode(`Calculated tip: $${tip}`)
+        let t4 = document.createTextNode(`Total: $${total}`)
+
+        // add the text to the p tags
+        p1.appendChild(t1)
+        p2.appendChild(t2)
+        p3.appendChild(t3)
+        p4.appendChild(t4)
+
+        // not on the page until we append it to an element on the page
+        result.appendChild(p1)
+        result.appendChild(p2)
+        result.appendChild(p3)
+        result.appendChild(p4)
+      }
+
+      // helper function to moneyRound
+      const moneyRound = (num) => {
+        return Math.ceil(num * 100) / 100
+      }
+    </script>
+  </body>
+</html>
