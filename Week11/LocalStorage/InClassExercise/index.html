@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local Storage</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <!-- span to change when local storage is accessed -->
+      <h1>Hello <span id="user">World</span>!</h1>
+
+      <!-- form to change the h1 info -->
+      <form id="userInfo" class="shadow-sm mb-5 p-3 bg bg-body-teriary rounded">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="firstName"
+            id="firstName"
+            placeholder="Your first name here"
+          />
+          <label for="firstName">Enter your first name</label>
+        </div>
+
+        <button id="nameSetBtn" type="button" class="btn btn-info btn-lg">
+          Submit
+        </button>
+
+        <button id="clearBtn" type="button" class="btn btn-danger btn-lg">
+          Clear Current User
+        </button>
+      </form>
+
+      <script>
+        // sets the user name based on the form input
+        const saveUser = () => {
+          //grab the input element you want to read from and access with .value
+          const name = document.getElementById('firstName').value
+          // write it to local storage
+          localStorage.firstName = name
+          /*
+          const localStorage = {
+            firstName: name
+          }
+          */
+          window.location.reload()
+        }
+
+        // clear out the local storage name aka forget me option
+        const clearLocalStorage = () => {
+          localStorage.clear() // clears out all local storage for this web page
+          // since local storage got cleared after the page finished loading,
+          //  we need to reload to page to see the updated/cleared value
+          window.location.reload()
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          // if you want to receive the event in your anonymous callback function, you cant use arrow functions
+          // only the function keyword receives the event as expected
+          document
+            .getElementById('nameSetBtn')
+            .addEventListener('click', saveUser)
+
+          document
+            .getElementById('clearBtn')
+            .addEventListener('click', clearLocalStorage)
+
+          //conditional to see if the local storage key we want is present
+          // this will only run once when the page finishes loading
+          if (localStorage.firstName) {
+            // set the value of our SPAN in our H1 to be the value of out localstorage key firstName
+            document.getElementById('user').textContent = localStorage.firstName
+          }
+        })
+      </script>
+    </div>
+  </body>
+</html>
