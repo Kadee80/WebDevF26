@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JS Objects: deep dive</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Helvetica, sans-serif;
+        max-width: 42rem;
+        margin: 3rem auto;
+        padding: 0 1.5rem;
+        line-height: 1.6;
+        color: #16191f;
+      }
+      h1 {
+        font-size: 1.4rem;
+        border-bottom: 4px solid #16191f;
+        padding-bottom: 0.5rem;
+      }
+      code {
+        background: #eef2f7;
+        padding: 0.1rem 0.3rem;
+        border-radius: 3px;
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+      }
+      #output {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 4px solid #16191f;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Open the Console</h1>
+
+    <p>
+      Most of this lesson prints to the console, not to the page. Press
+      <code>Cmd + Option + J</code> on a Mac or <code>F12</code> on Windows,
+      then click the Console tab.
+    </p>
+
+    <p>Save in VS Code, then refresh here to re-run the script.</p>
+
+    <!-- Section 9 asks you to put an object on the page. These three are here
+         for that. Give them content with querySelector and textContent. -->
+    <div id="output">
+      <h2 id="line-one"></h2>
+      <p id="line-two"></p>
+      <p id="line-three"></p>
+    </div>
+
+    <script>
+      // ============================================================
+      // Section 2: your first object. Replace this with your own.
+      // ============================================================
+
+      const me = {
+        name: 'change this',
+        lives: 'Brooklyn',
+        classes: 4,
+        hasEaten: false,
+      }
+
+      console.log(me)
+
+      // ============================================================
+      // Work through the lesson from here. One section at a time, and
+      // keep what you wrote: later sections build on earlier ones.
+      // ============================================================
+    </script>
+  </body>
+</html>

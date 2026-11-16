@@ -98,6 +98,6 @@ cp -R WeekNN/SomeTopic/StarterFiles ~/your-hw-repo/WeekNN/
 | 09 | Intro to JavaScript: variables, math, arrays & random content |
 | 10 | The DOM: event listeners, show/hide & toggling classes |
 | 11 | Toggling classes, user input, local storage & geolocation |
-| 12 | Bootstrap grid, Leaflet & OpenStreetMap |
-| 13 | Bootstrap galleries, GSAP animation |
+| 12 | JavaScript objects (self-guided), final project proposals |
+| 13 | Bootstrap grid & galleries, GSAP animation |
 | 14 | Bootstrap components, final projects |
