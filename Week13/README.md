@@ -30,7 +30,7 @@ read one. The new part is the waiting.
 ## Homework
 
 [HW.md](HW.md). It has not changed: **final project presentations and
-documentation are in 2 weeks**, and that is the deadline that matters. The API
+documentation are Dec 10**, and that is the deadline that matters. The API
 practice at the end of Tuesday's notes is optional, and worth doing if your
 final project needs data from anywhere.
 
