@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Character Lookup</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header class="masthead">
+      <h1>Character Lookup</h1>
+      <p class="sub">Data from the Rick and Morty API</p>
+    </header>
+
+    <main>
+      <!-- Part two of the class uses this. Leave it alone until then. -->
+      <form class="search" id="search-form">
+        <label for="query">Search by name</label>
+        <input id="query" type="text" placeholder="morty" autocomplete="off" />
+        <button type="submit">Search</button>
+      </form>
+
+      <!-- One element for each of the three things a request can be doing.
+           Only one of them should ever be visible at a time. -->
+      <p class="note is-hidden" id="loading">Loading...</p>
+      <p class="note error is-hidden" id="error"></p>
+
+      <!-- Part one: one character goes in here. -->
+      <article class="card is-hidden" id="card">
+        <img class="avatar" id="avatar" alt="" />
+        <div class="card-body">
+          <h2 id="name"></h2>
+          <p class="status" id="status"></p>
+          <p class="meta" id="meta"></p>
+          <p class="meta" id="origin"></p>
+        </div>
+      </article>
+
+      <!-- Part two: many characters go in here. -->
+      <p class="count is-hidden" id="count"></p>
+      <div class="grid" id="results"></div>
+    </main>
+
+    <script>
+      // Everything today goes here. Console open, and keep it open.
+    </script>
+  </body>
+</html>

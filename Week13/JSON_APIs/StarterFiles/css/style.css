@@ -1,0 +1,181 @@
+/* Styled already. Today is about getting data, not about CSS. */
+
+:root {
+  --ink: #16191f;
+  --paper: #ffffff;
+  --panel: #f4f6f9;
+  --line: #d9dfe7;
+  --muted: #5d6775;
+  --alive: #1f7a4d;
+  --dead: #c0392b;
+  --unknown: #7a6a2f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 1.25rem 4rem;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Helvetica, sans-serif;
+}
+
+main {
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+.masthead {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 2.5rem 0 1.5rem;
+  border-bottom: 4px solid var(--ink);
+}
+
+.masthead h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  letter-spacing: -0.02em;
+}
+
+.masthead .sub {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.75rem 0;
+}
+
+.search label {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.search input {
+  flex: 1;
+  min-width: 12rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font: inherit;
+}
+
+.search button {
+  padding: 0.6rem 1.4rem;
+  border: 0;
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.note {
+  margin: 1rem 0;
+  padding: 0.85rem 1rem;
+  background: var(--panel);
+  border-left: 4px solid var(--line);
+  color: var(--muted);
+}
+
+.note.error {
+  background: #fdf0ee;
+  border-left-color: var(--dead);
+  color: var(--dead);
+}
+
+.count {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  flex: none;
+  object-fit: cover;
+  border-radius: 3px;
+  background: var(--line);
+}
+
+.card-body h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+}
+
+.meta {
+  margin: 0.15rem 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+/* The status colour comes from a class name, exactly like week 11. */
+.status {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.status.alive {
+  color: var(--alive);
+}
+
+.status.dead {
+  color: var(--dead);
+}
+
+.status.unknown {
+  color: var(--unknown);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.grid .card {
+  gap: 0.85rem;
+}
+
+.grid .avatar {
+  width: 72px;
+  height: 72px;
+}
+
+.grid .card-body h2 {
+  font-size: 0.98rem;
+}
+
+.is-hidden {
+  display: none;
+}

@@ -99,5 +99,5 @@ cp -R WeekNN/SomeTopic/StarterFiles ~/your-hw-repo/WeekNN/
 | 10 | The DOM: event listeners, show/hide & toggling classes |
 | 11 | Toggling classes, user input, local storage & geolocation |
 | 12 | JavaScript objects (self-guided), final project proposals |
-| 13 | Bootstrap grid & galleries, GSAP animation |
+| 13 | JSON, and fetching data from an API |
 | 14 | Bootstrap components, final projects |
