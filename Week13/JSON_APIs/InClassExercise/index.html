@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Character Lookup</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header class="masthead">
+      <h1>Character Lookup</h1>
+      <p class="sub">Data from the Rick and Morty API</p>
+    </header>
+
+    <main>
+      <!-- Part two of the class uses this. Leave it alone until then. -->
+      <form class="search" id="search-form">
+        <label for="query">Search by name</label>
+        <input id="query" type="text" placeholder="morty" autocomplete="off" />
+        <button type="submit">Search</button>
+      </form>
+
+      <!-- One element for each of the three things a request can be doing.
+           Only one of them should ever be visible at a time. -->
+      <p class="note is-hidden" id="loading">Loading...</p>
+      <p class="note error is-hidden" id="error"></p>
+
+      <!-- Part one: one character goes in here. -->
+      <article class="card is-hidden" id="card">
+        <img class="avatar" id="avatar" alt="" />
+        <div class="card-body">
+          <h2 id="name"></h2>
+          <p class="status" id="status"></p>
+          <p class="meta" id="meta"></p>
+          <p class="meta" id="origin"></p>
+        </div>
+      </article>
+
+      <!-- Part two: many characters go in here. -->
+      <p class="count is-hidden" id="count"></p>
+      <div class="grid" id="results"></div>
+    </main>
+
+    <script>
+      /* =========================================================
+         ONE PLACE THAT KNOWS THE ADDRESS
+         Everything else builds on this string. If the API ever
+         moves, this is the only line that changes.
+         ========================================================= */
+
+      const BASE = 'https://rickandmortyapi.com/api/character'
+
+      const loadingEl = document.querySelector('#loading')
+      const errorEl = document.querySelector('#error')
+      const cardEl = document.querySelector('#card')
+      const countEl = document.querySelector('#count')
+      const resultsEl = document.querySelector('#results')
+
+      /* =========================================================
+         THE THREE STATES
+         A request is either happening, or it failed, or it worked.
+         One function that makes sure exactly one of those is on
+         screen, so we can never show a spinner and an error at the
+         same time.
+         ========================================================= */
+
+      function showLoading() {
+        loadingEl.classList.remove('is-hidden')
+        errorEl.classList.add('is-hidden')
+        cardEl.classList.add('is-hidden')
+        countEl.classList.add('is-hidden')
+        resultsEl.innerHTML = ''
+      }
+
+      function showError(message) {
+        loadingEl.classList.add('is-hidden')
+        errorEl.classList.remove('is-hidden')
+        errorEl.textContent = message
+        cardEl.classList.add('is-hidden')
+        countEl.classList.add('is-hidden')
+        resultsEl.innerHTML = ''
+      }
+
+      // fetch throws a TypeError when it could not reach the server at
+      // all: no wifi, server down, address wrong. The message it gives
+      // ('Failed to fetch') is useless to a human, so we translate it.
+      // Anything else is an Error we threw ourselves, and ours already
+      // say something worth reading.
+      function friendly(err) {
+        if (err.name === 'TypeError') {
+          return 'Could not reach the server. Check your connection and try again.'
+        }
+
+        return err.message
+      }
+
+      function clearNotes() {
+        loadingEl.classList.add('is-hidden')
+        errorEl.classList.add('is-hidden')
+      }
+
+      /* =========================================================
+         PART ONE: ONE CHARACTER
+         ========================================================= */
+
+      async function getCharacter(id) {
+        const response = await fetch(`${BASE}/${id}`)
+
+        // fetch does NOT throw on a 404. It throws when it could not
+        // reach the server at all. A reply saying 'no such character'
+        // is still a reply, so we have to check ourselves.
+        if (!response.ok) {
+          throw new Error(`No character with id ${id} (status ${response.status})`)
+        }
+
+        return await response.json()
+      }
+
+      function renderCharacter(character) {
+        clearNotes()
+        cardEl.classList.remove('is-hidden')
+
+        document.querySelector('#avatar').src = character.image
+        document.querySelector('#avatar').alt = character.name
+        document.querySelector('#name').textContent = character.name
+        document.querySelector('#meta').textContent = `${character.species} · ${character.gender}`
+
+        // origin is an object inside the character object
+        document.querySelector('#origin').textContent = `From ${character.origin.name}`
+
+        const statusEl = document.querySelector('#status')
+        statusEl.textContent = character.status
+        // status comes back as 'Alive', 'Dead' or 'unknown'. Lower-case
+        // it and the stylesheet does the colour, exactly like week 11.
+        statusEl.className = `status ${character.status.toLowerCase()}`
+      }
+
+      async function showCharacter(id) {
+        showLoading()
+
+        try {
+          const character = await getCharacter(id)
+          renderCharacter(character)
+        } catch (err) {
+          console.error(err)
+          showError(friendly(err))
+        }
+      }
+
+      /* =========================================================
+         PART TWO: A SEARCH
+         ========================================================= */
+
+      async function searchCharacters(name) {
+        const response = await fetch(`${BASE}/?name=${encodeURIComponent(name)}`)
+
+        if (response.status === 404) {
+          // the API says 404 when a search matches nothing. That is
+          // not an error worth a red box, it is an empty result.
+          return []
+        }
+
+        if (!response.ok) {
+          throw new Error(`The server said ${response.status}. Try again in a minute.`)
+        }
+
+        const data = await response.json()
+
+        // the characters are NOT the top level. They are in results.
+        return data.results
+      }
+
+      function renderResults(characters, name) {
+        clearNotes()
+        cardEl.classList.add('is-hidden')
+
+        if (characters.length === 0) {
+          showError(`Nobody here is called "${name}".`)
+          return
+        }
+
+        countEl.classList.remove('is-hidden')
+        countEl.textContent = `${characters.length} shown`
+
+        let html = ''
+
+        for (let i = 0; i < characters.length; i++) {
+          const character = characters[i]
+          const status = character.status.toLowerCase()
+
+          html += `
+            <article class="card">
+              <img class="avatar" src="${character.image}" alt="${character.name}" />
+              <div class="card-body">
+                <h2>${character.name}</h2>
+                <p class="status ${status}">${character.status}</p>
+                <p class="meta">${character.species}</p>
+                <p class="meta">${character.origin.name}</p>
+              </div>
+            </article>`
+        }
+
+        resultsEl.innerHTML = html
+      }
+
+      async function handleSearch(event) {
+        event.preventDefault()
+
+        const name = document.querySelector('#query').value.trim()
+
+        if (name === '') {
+          return
+        }
+
+        showLoading()
+
+        try {
+          const characters = await searchCharacters(name)
+          renderResults(characters, name)
+        } catch (err) {
+          console.error(err)
+          showError(friendly(err))
+        }
+      }
+
+      document.querySelector('#search-form').addEventListener('submit', handleSearch)
+
+      /* =========================================================
+         GO
+         ========================================================= */
+
+      showCharacter(1)
+    </script>
+  </body>
+</html>
