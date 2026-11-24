@@ -1,6 +1,6 @@
-# Final Presentations NEXT WEEK
+# Final Presentations DECEMBER 10
 
-In order for your project to be considered complete for grading you will be **required to submit the following by the final deadline on the syllabus:**
+In order for your project to be considered complete for grading you will be **required to submit the following by FRIDAY DECEMBER 18:**
 
 1. In Class Presentation
 2. README.md documentation
