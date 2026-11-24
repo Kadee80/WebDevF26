@@ -9,7 +9,7 @@ In order for your project to be considered complete for grading you will be **re
 
 ## Presentations
 
-You will be presenting your final website projects **next week**. Your presentation should cover:
+You will be presenting your final website projects ** in 2 weeks**. Your presentation should cover:
 
 ## Documentation
 
